@@ -3,597 +3,503 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Financial Accounting Assistant</title>
+    <title>FA Assistant - Inovasi Perakaunan</title>
     <style>
-        /* CSS Variables */
+        /* CSS Variables - Tema Moden & Premium */
         :root {
             --primary: #0f172a; 
-            --secondary: #10b981; 
-            --secondary-hover: #059669;
-            --bg-light: #f8fafc;
-            --text-dark: #1e293b;
+            --secondary: #0ea5e9; /* Modern Sky Blue */
+            --secondary-hover: #0284c7;
+            --accent: #10b981; /* Emerald for highlights */
+            --bg-body: #f1f5f9;
+            --bg-chat: #ffffff;
+            --text-main: #1e293b;
             --text-muted: #64748b;
-            --card-bg: #ffffff;
-            --border: #e2e8f0;
-            --chat-user: #0ea5e9;
+            --border-light: #e2e8f0;
+            --msg-user-bg: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            --msg-bot-bg: #f8fafc;
             --danger: #ef4444;
             --warning: #f59e0b;
         }
 
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        /* Reset & Base Setup */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, sans-serif; }
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; /* Elak skrol keseluruhan body */
         }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a { text-decoration: none; }
         
-        /* Utiliti */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        /* Typography & Utilities */
+        a { text-decoration: none; }
+        ul { list-style: none; }
+        button { font-family: inherit; outline: none; }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 0.95rem;
-            text-align: center;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s ease; border: none; font-size: 0.9rem;
         }
-
-        .btn-primary { background-color: var(--secondary); color: white; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
-        .btn-primary:hover { background-color: var(--secondary-hover); transform: translateY(-2px); }
-        
-        .btn-danger { background-color: var(--danger); color: white; padding: 6px 12px; font-size: 0.8rem; }
+        .btn-primary { background-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
+        .btn-primary:hover { background-color: #1e293b; transform: translateY(-1px); }
+        .btn-accent { background-color: var(--accent); color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+        .btn-accent:hover { background-color: #059669; }
+        .btn-danger { background-color: var(--danger); color: white; }
         .btn-danger:hover { background-color: #dc2626; }
-        
-        .btn-warning { background-color: var(--warning); color: white; padding: 6px 12px; font-size: 0.8rem; }
+        .btn-warning { background-color: var(--warning); color: white; }
         .btn-warning:hover { background-color: #d97706; }
+        .btn-outline { background: transparent; border: 1px solid var(--border-light); color: var(--text-main); }
+        .btn-outline:hover { background: var(--bg-body); }
+        .btn-action { background: transparent; border: 1px solid var(--secondary); color: var(--secondary); padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;}
+        .btn-action:hover { background: var(--secondary); color: white; }
 
-        .btn-outline { background: transparent; border: 1px solid var(--secondary); color: var(--secondary); padding: 8px 16px; margin-top: 10px; border-radius: 20px;}
-        .btn-outline:hover { background: var(--secondary); color: white; }
-
-        .btn-reset {
-            background: transparent;
-            border: 1px solid var(--text-muted);
-            color: var(--text-muted);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .btn-reset:hover {
-            background: var(--text-muted);
-            color: white;
-        }
-
-        /* Navigation */
+        /* App Header (Minimalist) */
         header {
-            background-color: var(--card-bg);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            height: 60px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            height: 70px;
+            padding: 0 20px;
+            z-index: 50;
+            flex-shrink: 0;
         }
+        .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px;}
+        .logo span { color: var(--secondary); font-size: 1.4rem; }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
+        /* Main App Container */
+        .app-main {
+            flex: 1;
             display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .logo span { color: var(--secondary); font-size: 1.6rem; }
-
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--text-dark); font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--secondary); }
-
-        /* Hero Section */
-        .hero {
-            padding: 40px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, #1e293b 100%);
-            color: white;
-            min-height: calc(100vh - 70px);
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-container {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-content { flex: 1 1 400px; }
-        .hero-content h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 20px; }
-        .hero-content p { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 30px; }
-        .hero-content ul { list-style-type: none; padding-left: 0; }
-        .hero-content ul li { margin-bottom: 10px; color: #cbd5e1; display: flex; align-items: center; gap: 8px;}
-
-        /* Interactive Chat UI */
-        .hero-visual {
-            flex: 1 1 350px;
-            width: 100%;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            padding: 20px;
             overflow: hidden;
+            background: radial-gradient(circle at top right, #e0e7ff 0%, var(--bg-body) 60%);
+        }
+
+        /* Chat Window */
+        .chat-container {
+            width: 100%;
+            max-width: 950px;
+            background: var(--bg-chat);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02);
             display: flex;
             flex-direction: column;
-            height: 600px;
-            max-height: 80vh;
+            overflow: hidden;
             position: relative;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Chat Header */
         .chat-header {
-            background: #f1f5f9;
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-dark);
-            font-weight: 700;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: #ffffff;
+            flex-shrink: 0;
         }
+        .chat-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; color: var(--primary); }
+        .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px rgba(16,185,129,0.4); animation: pulse 2s infinite;}
         
-        .chat-header-title { display: flex; align-items: center; gap: 10px; }
-
-        .chat-header .status {
-            width: 10px;
-            height: 10px;
-            background: var(--secondary);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--secondary);
+        .reset-btn {
+            background: var(--bg-body); color: var(--text-muted); border: none; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px;
         }
+        .reset-btn:hover { background: var(--border-light); color: var(--text-main); }
 
+        /* Chat Body */
         .chat-body {
-            padding: 20px;
-            flex-grow: 1;
+            flex: 1;
+            padding: 24px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            font-size: 0.95rem;
-            background-color: #ffffff;
+            gap: 20px;
             scroll-behavior: smooth;
         }
+        .chat-body::-webkit-scrollbar { width: 6px; }
+        .chat-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-        .msg {
-            max-width: 85%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            animation: fadeIn 0.3s ease forwards;
-            line-height: 1.5;
+        /* Messages */
+        .msg-wrapper { display: flex; flex-direction: column; width: 100%; animation: fadeIn 0.4s ease; }
+        .msg-wrapper.user { align-items: flex-end; }
+        .msg-wrapper.bot { align-items: flex-start; }
+
+        .msg-bubble {
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 18px;
+            line-height: 1.6;
+            font-size: 0.95rem;
             word-wrap: break-word;
         }
+        .msg-wrapper.user .msg-bubble {
+            background: var(--msg-user-bg);
+            color: white;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.2);
+        }
+        .msg-wrapper.bot .msg-bubble {
+            background: var(--msg-bot-bg);
+            color: var(--text-main);
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--border-light);
+        }
 
-        .msg.user { background: var(--chat-user); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .msg.bot { background: #f1f5f9; color: var(--text-dark); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--border); }
+        .bot-welcome-list { margin-top: 10px; margin-left: 10px; padding-left: 15px; border-left: 3px solid var(--secondary); color: var(--text-muted); font-size: 0.9rem;}
+        .bot-welcome-list li { margin-bottom: 6px; }
 
-        .typing-indicator { display: flex; gap: 4px; padding: 5px; }
-        .dot { width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+        /* Typing Indicator */
+        .typing { display: flex; gap: 5px; padding: 6px 4px; }
+        .dot { width: 7px; height: 7px; background: #94a3b8; border-radius: 50%; animation: typeBounce 1.4s infinite ease-in-out both; }
         .dot:nth-child(1) { animation-delay: -0.32s; }
         .dot:nth-child(2) { animation-delay: -0.16s; }
 
-        /* Suggestions Chips Area */
-        .chat-suggestions-wrapper { background: white; padding: 12px 15px 5px 15px; border-top: 1px solid var(--border); }
-        .suggestion-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; }
-        .chat-suggestions { 
-            display: flex; 
-            gap: 10px; 
-            overflow-x: auto; 
-            padding-bottom: 8px; 
-            scrollbar-width: thin;
-            scrollbar-color: #cbd5e1 transparent;
-            -ms-overflow-style: auto;
-            -webkit-overflow-scrolling: touch;
-            cursor: grab;
-        }
-        
-        .chat-suggestions:active { cursor: grabbing; }
-        .chat-suggestions::-webkit-scrollbar { height: 6px; display: block; }
-        .chat-suggestions::-webkit-scrollbar-track { background: transparent; }
-        .chat-suggestions::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
-        
-        .suggestion-chip { 
-            white-space: nowrap; 
-            background: white; 
-            border: 1px solid var(--secondary); 
-            color: var(--secondary-hover); 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            font-size: 0.85rem; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            font-weight: 500; 
-            flex-shrink: 0;
-            user-select: none;
-        }
-        .suggestion-chip:hover { background: var(--secondary); color: white; }
-
-        /* Input & Autocomplete Area */
-        .chat-input-container {
+        /* Input Area */
+        .input-area {
+            padding: 24px;
+            background: #ffffff;
             display: flex;
-            padding: 10px 15px 15px 15px;
-            background: white;
+            gap: 12px;
             position: relative;
+            flex-shrink: 0;
+            border-top: 1px solid var(--border-light);
         }
-
-        #userInput {
+        .input-box {
             flex: 1;
-            padding: 10px 15px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            outline: none;
+            background: var(--bg-body);
+            border: 1px solid transparent;
+            padding: 14px 20px;
+            border-radius: 16px;
             font-size: 0.95rem;
-            transition: border-color 0.3s;
+            outline: none;
+            transition: all 0.3s ease;
         }
-
-        #userInput:focus {
-            border-color: var(--secondary);
-        }
-
-        #sendBtn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        #sendBtn:hover {
-            background: var(--secondary);
-            transform: scale(1.05);
-        }
-
-        /* Autocomplete / Pembayang Soalan */
-        .autocomplete-wrapper {
-            position: absolute;
-            bottom: 100%;
-            left: 0;
-            width: 100%;
-            padding: 0 15px;
-            z-index: 20;
-            margin-bottom: 5px;
-        }
-
-        .autocomplete-list {
-            list-style: none;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        .autocomplete-list li {
-            padding: 12px 15px;
-            border-bottom: 1px solid #f1f5f9;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            transition: background 0.2s;
-        }
-
-        .autocomplete-list li:hover {
-            background: #f1f5f9;
-            color: var(--secondary-hover);
-        }
-
-        .autocomplete-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* Modals */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center;
-            backdrop-filter: blur(4px);
-            padding: 10px;
-        }
-
-        .modal-content {
-            background: white; width: 100%; max-width: 1000px; border-radius: 16px;
-            max-height: 95vh; display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-        }
-
-        .modal-header {
-            padding: 15px 20px; background: var(--primary); color: white;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .modal-header h2 { font-size: 1.3rem; }
-        .close-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; line-height: 1; }
-
-        .modal-body {
-            padding: 20px; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-        }
-
-        /* Forms & Tables */
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color: var(--text-dark); font-size: 0.9rem;}
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px;
-            font-size: 0.95rem; outline: none; transition: border-color 0.3s;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--secondary); }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-
-        .admin-table-container { background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column;}
+        .input-box:focus { background: #ffffff; border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(14,165,233,0.1); }
         
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-bottom: 10px;
+        .send-btn {
+            background: var(--primary); color: white; border: none; width: 48px; height: 48px;
+            border-radius: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; box-shadow: 0 4px 10px rgba(15,23,42,0.15);
         }
+        .send-btn:hover { background: var(--secondary); transform: scale(1.05); }
+        .send-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
-        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 350px; }
-        .admin-table th, .admin-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
-        .admin-table th { background: #e2e8f0; font-weight: 600; position: sticky; top: 0; white-space: nowrap; }
-        .admin-table tr:hover { background: white; }
+        /* Autocomplete Box */
+        .autocomplete-box {
+            position: absolute; bottom: 100%; left: 24px; right: 24px; background: white; border-radius: 16px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1); border: 1px solid var(--border-light);
+            max-height: 220px; overflow-y: auto; z-index: 20; margin-bottom: 10px; display: none;
+        }
+        .autocomplete-item { padding: 14px 20px; border-bottom: 1px solid var(--bg-body); cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+        .autocomplete-item:hover { background: #f8fafc; color: var(--secondary); padding-left: 25px;}
+        .autocomplete-item:last-child { border-bottom: none; }
 
-        .action-btns { display: flex; gap: 5px; }
+        /* Custom Modals (Admin, Login, Confirm) */
+        .modal-backdrop {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 100;
+            align-items: center; justify-content: center; padding: 15px; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-backdrop.show { opacity: 1; }
+        
+        /* Lapisan Pengesahan Sistem diletakkan di lapisan teratas (z-index: 200) */
+        #confirmModal {
+            z-index: 200;
+        }
+        
+        .modal-card {
+            background: #ffffff; width: 100%; border-radius: 20px; overflow: hidden;
+            display: flex; flex-direction: column; max-height: 90vh;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); transform: scale(0.95); transition: transform 0.3s ease;
+        }
+        .modal-backdrop.show .modal-card { transform: scale(1); }
 
-        /* Login Modal Khusus */
-        #loginModal .modal-content { max-width: 400px; display: block; }
-        #loginModal .modal-body { display: block; padding: 30px; }
-        .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; display: none; }
+        .modal-card.md { max-width: 450px; }
+        .modal-card.lg { max-width: 1100px; width: 100%; }
 
+        .modal-header { padding: 20px 24px; background: var(--bg-chat); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;}
+        .modal-header h2 { font-size: 1.25rem; color: var(--primary); }
+        .close-btn { background: var(--bg-body); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); transition: 0.2s;}
+        .close-btn:hover { background: #e2e8f0; color: var(--danger); }
+        
+        .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 10px; background: var(--bg-body); flex-shrink: 0;}
+
+        /* Admin Layout Grid - Responsif Respons Penuh */
+        .admin-grid { 
+            display: grid; 
+            grid-template-columns: 4fr 6fr; 
+            gap: 28px; 
+            align-items: start;
+        }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.85rem; color: var(--text-main);}
+        .form-control { width: 100%; padding: 12px 16px; border: 1px solid var(--border-light); border-radius: 10px; font-size: 0.9rem; background: #f8fafc; transition: 0.3s; outline: none;}
+        .form-control:focus { background: white; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(14,165,233,0.1); }
+        textarea.form-control { resize: vertical; min-height: 80px; }
+        .error-text { color: var(--danger); font-size: 0.8rem; margin-top: 6px; display: none; font-weight: 500;}
+
+        /* Admin Table & Wrappers */
+        .table-wrap { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; background: white;}
+        .table-responsive { width: 100%; overflow-x: auto; max-height: 420px;}
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; min-width: 500px;}
+        .data-table th, .data-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-light); vertical-align: middle;}
+        .data-table th { background: #f8fafc; font-weight: 600; position: sticky; top: 0; z-index: 10; color: var(--primary);}
+        .data-table tr:hover td { background: #f1f5f9; }
+        .action-cell { display: flex; gap: 8px; justify-content: flex-start; }
+
+        /* Toast Notification */
+        .toast {
+            visibility: hidden; min-width: 280px; background-color: var(--primary); color: white;
+            text-align: center; border-radius: 30px; padding: 12px 24px; position: fixed; z-index: 1000;
+            left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px); font-weight: 500; font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.4s, transform 0.4s;
+        }
+        .toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* Animations */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
+        @keyframes typeBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-        /* Media Queries untuk Responsif */
-        @media (max-width: 992px) {
-            .hero-content h1 { font-size: 2.4rem; }
-            .modal-body { grid-template-columns: 1fr; gap: 30px; }
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .modal-card.lg { max-width: 90vw; }
+            .admin-grid { grid-template-columns: 1fr; gap: 30px; }
+            .table-responsive { max-height: 320px; }
         }
-
+        
         @media (max-width: 768px) {
-            nav { height: 60px; }
-            .nav-links { display: none; }
-            .logo { font-size: 1.2rem; }
-            .logo span { font-size: 1.4rem; }
-            .btn { padding: 8px 16px; font-size: 0.85rem; }
+            body { background: white; }
+            header { height: 55px; border-bottom: none; box-shadow: 0 1px 3px rgba(0,0,0,0.05);}
+            .app-main { padding: 0; background: none; }
+            .chat-container { border-radius: 0; max-width: 100%; box-shadow: none; height: 100%; border-top: 1px solid var(--border-light);}
+            .chat-header { padding: 12px 16px; }
+            .chat-body { padding: 16px; }
+            .msg-bubble { max-width: 90%; font-size: 0.9rem; }
+            .input-area { padding: 16px; }
             
-            .hero { padding: 20px 0; min-height: auto; }
-            .hero-container { gap: 20px; flex-direction: column; }
-            .hero-content { flex: none; width: 100%; text-align: center; }
-            .hero-content h1 { font-size: 1.8rem; margin-bottom: 15px; }
-            .hero-content p { font-size: 0.95rem; margin-bottom: 20px; }
-            .hero-content ul li { justify-content: center; font-size: 0.9rem; }
-            
-            .hero-visual { flex: none; width: 100%; height: 500px; max-height: 70vh; }
-            .chat-body { padding: 15px; }
-            .msg { max-width: 90%; padding: 10px 14px; font-size: 0.9rem; }
-
-            .modal-header h2 { font-size: 1.1rem; }
-            .modal-body { padding: 15px; }
-            .form-group label { font-size: 0.85rem; }
-            .form-group input, .form-group textarea { font-size: 0.9rem; padding: 8px; }
-            
-            .chat-header { padding: 10px 15px; font-size: 0.9rem; }
+            /* Modal Dashboard Responsif Pada Telefon Pintar */
+            .modal-card.lg { max-width: 100%; height: 100%; max-height: 100vh; border-radius: 0; }
+            .modal-body { padding: 16px; }
+            .admin-grid { gap: 24px; }
+            .table-responsive { max-height: 300px; }
+            .data-table th, .data-table td { padding: 10px 12px; font-size: 0.8rem; }
+            .btn-action { padding: 6px 12px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <div class="container nav-container">
-            <nav>
-                <div class="logo">
-                    <span>⚡</span> FA Assistant
-                </div>
-                <div class="nav-links">
-                    <a href="#">Utama</a>
-                    <a href="#">Modul Pembelajaran</a>
-                </div>
-                <!-- Admin Login Trigger -->
-                <button class="btn btn-primary" onclick="showLoginModal()">Akses Pentadbir</button>
-            </nav>
+        <div class="logo">
+            <span>✦</span> FA Assistant
         </div>
+        <button class="btn btn-primary" style="padding: 6px 16px; font-size: 0.8rem; border-radius: 8px;" onclick="showLoginModal()">
+            Akses Admin
+        </button>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1>Kuasai Konsep Susut Nilai Aset Secara Komprehensif</h1>
-                <p>Alami inovasi pembelajaran kendiri melalui platform interaktif kami. Ajukan persoalan anda dan sistem pintar ini akan membimbing anda dengan jawapan berasaskan silibus akademik secara masa nyata.</p>
-                <ul>
-                    <li>✅ <strong>Struktur Jawapan Holistik:</strong> Pilihan penerangan asas dan huraian terperinci.</li>
-                    <li>✅ <strong>Enjin Carian Dinamik:</strong> Penjanaan pembayang soalan pintar (Auto-Suggest).</li>
-                    <li>✅ <strong>Pengurusan Data Selamat:</strong> Modul pentadbir tersulit khusus untuk tenaga pengajar.</li>
-                </ul>
+    <main class="app-main">
+        <div class="chat-container">
+            
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="status-dot"></div> Financial Accounting
+                </div>
+                <button class="reset-btn" onclick="triggerResetChat()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Reset
+                </button>
             </div>
             
-            <!-- Interactive Chat Interface -->
-            <div class="hero-visual">
-                <div class="chat-header">
-                    <div class="chat-header-title">
-                        <div class="status"></div> FA Assistant (Modul: Susut Nilai)
-                    </div>
-                    <!-- Reset Button -->
-                    <button class="btn-reset" onclick="resetChat()" title="Kosongkan Perbualan">
-                        🔄 Set Semula
-                    </button>
-                </div>
-                
-                <div class="chat-body" id="chat-box">
-                    <div class="msg bot" id="welcome-msg">Salam sejahtera! Saya merupakan Pembantu Perakaunan Kewangan anda. Sudah bersedia untuk mengulang kaji? <br><br>Sila buat pilihan daripada senarai topik di bawah atau taip terus persoalan anda pada ruang input yang disediakan. 👇</div>
-                </div>
-
-                <!-- Suggestions Chips Area -->
-                <div class="chat-suggestions-wrapper" id="chips-wrapper">
-                    <div class="suggestion-title">Navigasi Pantas (Tatal untuk lebih lanjut):</div>
-                    <div class="chat-suggestions" id="suggestions-container">
-                        <!-- Chips generated by JS -->
+            <div class="chat-body" id="chat-box">
+                <div class="msg-wrapper bot" id="welcome-msg">
+                    <div class="msg-bubble">
+                        Salam sejahtera! Saya merupakan Pembantu Perakaunan Kewangan (AI) anda. <br><br>
+                        Modul hari ini memfokuskan kepada <strong>Susut Nilai (Depreciation)</strong>. Sistem ini direka untuk membantu pemahaman anda melalui:
+                        <ul class="bot-welcome-list">
+                            <li>Analisis jawapan berstruktur (Ringkas & Terperinci)</li>
+                            <li>Enjin pembayang soalan masa nyata (Autocomplete)</li>
+                            <li>Berdasarkan silibus akademik yang tepat</li>
+                        </ul>
+                        <br>Sila taip terus persoalan anda di ruangan bawah menggunakan pembayang soalan masa nyata. 👇
                     </div>
                 </div>
-
-                <!-- Input & Autocomplete Area -->
-                <div class="chat-input-container">
-                    <div class="autocomplete-wrapper">
-                        <ul id="autocomplete-list" class="autocomplete-list"></ul>
-                    </div>
-                    <input type="text" id="userInput" placeholder="Kemukakan persoalan anda di sini..." autocomplete="off">
-                    <button id="sendBtn" title="Hantar Pertanyaan">➤</button>
-                </div>
-
             </div>
+
+            <div class="input-area">
+                <div class="autocomplete-box" id="autocomplete-list"></div>
+                <input type="text" id="userInput" class="input-box" placeholder="Taip di sini (Cth: Apakah maksud nilai buku...)" autocomplete="off">
+                <button id="sendBtn" class="send-btn" title="Hantar">
+                    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </div>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Modal Log Masuk Admin -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-content">
+    <div id="toast" class="toast">Mesej Notifikasi</div>
+
+    <div class="modal-backdrop" id="confirmModal">
+        <div class="modal-card md">
             <div class="modal-header">
-                <h2>Pengesahan Pentadbir Sistem</h2>
-                <button class="close-btn" onclick="closeLoginModal()">&times;</button>
+                <h2>Pengesahan Sistem</h2>
+                <button class="close-btn" onclick="closeConfirmModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <form id="loginForm" onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label>Kata Laluan Keselamatan</label>
-                        <input type="password" id="adminPassword" placeholder="Masukkan kata laluan yang sah" required>
-                        <div class="error-msg" id="loginError">Akses ditolak. Sila semak semula kata laluan anda.</div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Log Masuk</button>
-                </form>
-                <div style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: var(--text-muted);">
-                    
+            <div class="modal-body" style="text-align: center; padding: 30px 20px;">
+                <p id="confirmMsg" style="font-size: 1rem; color: var(--text-main); margin-bottom: 25px;"></p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button id="confirmYes" class="btn btn-danger">Teruskan Tindakan</button>
+                    <button class="btn btn-outline" onclick="closeConfirmModal()">Batal</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel Modal -->
-    <div class="modal-overlay" id="adminModal">
-        <div class="modal-content">
+    <div class="modal-backdrop" id="loginModal">
+        <div class="modal-card md">
             <div class="modal-header">
-                <h2>Papan Pemuka Pentadbir Data</h2>
-                <button class="close-btn" onclick="closeAdmin()">&times;</button>
+                <h2>Log Masuk Pentadbir</h2>
+                <button class="close-btn" onclick="closeLoginModal()">&times;</button>
             </div>
             <div class="modal-body">
-                
-                <!-- Form Tambah / Kemaskini Soalan -->
-                <div class="admin-form-container">
-                    <h3 id="formTitle" style="margin-bottom: 15px; color: var(--primary); font-size: 1.1rem;">Integrasi Soalan Baharu</h3>
-                    <form id="addQnaForm" onsubmit="saveQuestion(event)">
-                        <div class="form-group">
-                            <label>Pengecam Ringkas (Untuk Butang Navigasi) - <i>Pilihan</i></label>
-                            <input type="text" id="inputShortQ" placeholder="Cth: Definisi NBV? (Kosongkan jika tidak relevan)">
-                        </div>
-                        <div class="form-group">
-                            <label>Format Soalan Penuh</label>
-                            <input type="text" id="inputFullQ" placeholder="Cth: Apakah yang dimaksudkan dengan nilai buku bersih..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>Penerangan Asas (Rujukan Pantas)</label>
-                            <textarea id="inputAnsShort" placeholder="Nota padat yang memfokuskan kepada kefahaman konsep utama." required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Huraian Akademik Terperinci</label>
-                            <textarea id="inputAnsDetail" placeholder="Penerangan berstruktur merangkumi definisi, contoh pengiraan, dan aplikasi (Sokongan tag HTML dibenarkan)." required></textarea>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button type="submit" id="submitBtn" class="btn btn-primary" style="flex: 1;">+ Daftar Soalan</button>
-                            <button type="button" id="cancelEditBtn" class="btn btn-outline" style="display: none; margin-top: 0; padding: 10px;" onclick="cancelEdit()">Batal Proses</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Jadual Senarai Soalan -->
-                <div class="admin-table-container">
-                    <h3 style="margin-bottom: 15px; color: var(--primary); font-size: 1.1rem;">Repositori Soalan Berdaftar</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Indeks Soalan</th>
-                                    <th style="width: 140px;">Pengurusan</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminTableBody">
-                                <!-- Table rows generated by JS -->
-                            </tbody>
-                        </table>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Kata Laluan Keselamatan</label>
+                        <input type="password" id="adminPassword" class="form-control" placeholder="Masukkan kata laluan" required>
+                        <div class="error-text" id="loginError">Akses ditolak. Sila semak semula.</div>
                     </div>
-                    <button class="btn btn-outline" style="width:100%; margin-top:auto; color:var(--danger); border-color:var(--danger);" onclick="resetToDatabaseDefault()">Pulihkan Pangkalan Data Asal</button>
-                </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Akses Papan Pemuka</button>
+                </form>
+                <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">
+                    Nota Sistem: Kata laluan asal adalah <b>admin123</b>
+                </p>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal-backdrop" id="adminModal">
+        <div class="modal-card lg">
+            <div class="modal-header">
+                <h2>Papan Pemuka Data</h2>
+                <button class="close-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="admin-grid">
+                    
+                    <div class="form-section">
+                        <h3 id="formTitle" style="font-size: 1.1rem; color: var(--primary); margin-bottom: 16px;">Tambah Rekod Baharu</h3>
+                        <form id="dataForm" onsubmit="saveQuestion(event)">
+                            <div class="form-group">
+                                <label>Format Soalan Penuh (Wajib)</label>
+                                <input type="text" id="inputFullQ" class="form-control" placeholder="Cth: Apakah maksud nilai buku bersih..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Penerangan Asas (Ringkas)</label>
+                                <textarea id="inputAnsShort" class="form-control" style="min-height: 60px;" placeholder="Penerangan terus kepada poin utama." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Huraian Akademik Lanjut (Terperinci)</label>
+                                <textarea id="inputAnsDetail" class="form-control" style="min-height: 100px;" placeholder="Menyokong tag HTML seperti <b>teks</b> atau <br> untuk struktur." required></textarea>
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                                <button type="submit" id="submitBtn" class="btn btn-accent" style="flex: 1;">+ Daftar Soalan</button>
+                                <button type="button" id="cancelEditBtn" class="btn btn-outline" style="display: none;" onclick="cancelEdit()">Batal</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="table-section" style="display: flex; flex-direction: column;">
+                        <h3 style="font-size: 1.1rem; color: var(--primary); margin-bottom: 16px;">Repositori Data Semasa</h3>
+                        <div class="table-wrap">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Soalan Utama dalam Pangkalan Data</th>
+                                            <th style="width: 130px;">Pengurusan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminTableBody">
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline" style="margin-top: 20px; width: 100%; border-color: var(--danger); color: var(--danger);" onclick="triggerResetDB()">
+                            Pulihkan Pangkalan Data Asal
+                        </button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- SISTEM KESELAMATAN KATA LALUAN (HASHING) ---
-        const VALID_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // admin123
+        // --- CUSTOM UI COMPONENTS (Menggantikan alert & confirm) ---
+        let confirmActionCallback = null;
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.innerText = message;
+            toast.className = "toast show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function showConfirmUI(message, callback) {
+            document.getElementById('confirmMsg').innerHTML = message;
+            const modal = document.getElementById('confirmModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
+            confirmActionCallback = callback;
+        }
+
+        function closeConfirmModal() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; confirmActionCallback = null; }, 300);
+        }
+
+        document.getElementById('confirmYes').addEventListener('click', function() {
+            if (typeof confirmActionCallback === 'function') { confirmActionCallback(); }
+            closeConfirmModal();
+        });
+
+
+        // --- SECURITY (HASHING PASSWORD) ---
+        const VALID_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // "admin123"
 
         async function verifyPassword(password) {
             const msgUint8 = new TextEncoder().encode(password);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hashHex === VALID_HASH;
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('') === VALID_HASH;
         }
 
-        const loginModal = document.getElementById('loginModal');
-        const loginError = document.getElementById('loginError');
-
         function showLoginModal() {
-            loginModal.style.display = 'flex';
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
             document.getElementById('adminPassword').value = '';
-            loginError.style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
         }
 
         function closeLoginModal() {
-            loginModal.style.display = 'none';
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
         }
 
         async function handleLogin(e) {
@@ -603,46 +509,41 @@
 
             if (isValid) {
                 closeLoginModal();
-                openAdmin();
+                setTimeout(openAdminModal, 300);
             } else {
-                loginError.style.display = 'block';
+                document.getElementById('loginError').style.display = 'block';
             }
         }
 
 
-        // --- DATA DEFAULT ---
+        // --- DATABASE SETUP ---
         const defaultFaqData = [
             {
                 id: 1,
-                q: "Maklumat Asas Rekod?",
                 qFull: "Apakah maklumat asas yang diperlukan untuk merekodkan susut nilai?",
                 aShort: "Proses perekodan ini memerlukan pemerolehan data melibatkan kos aset, jangkaan nilai sisa, hayat berguna aset, serta polisi penyusutan syarikat.",
                 aDetail: "Daripada perspektif akademik, empat (4) elemen kritikal yang diwajibkan adalah:<br><br>1. <strong>Kos Penuh Aset:</strong> Menghimpunkan harga belian asal dan segala kos langsung yang terlibat.<br>2. <strong>Nilai Sisa (Residual Value):</strong> Unjuran nilai yang boleh direalisasikan di akhir jangka hayat aset.<br>3. <strong>Hayat Berguna (Useful Life):</strong> Ketetapan tempoh masa fungsi komersial sesuatu aset.<br>4. <strong>Polisi Susut Nilai:</strong> Kerangka kaedah pembahagian kos yang diadaptasi secara konsisten oleh organisasi."
             },
             {
                 id: 2,
-                q: "Kaedah Garis Lurus?",
                 qFull: "Bagaimanakah kaedah susut nilai garis lurus (straight-line method) diaplikasikan?",
                 aShort: "Kaedah ini memperuntukkan beban susut nilai pada kadar yang seimbang dan malar (constant) bagi setiap tempoh perakaunan.",
                 aDetail: "Penerapan <strong>Kaedah Garis Lurus (Straight-line Method)</strong> diformulasikan seperti berikut:<br><br><code>(Kos Aset - Nilai Sisa) ÷ Jangka Hayat Berguna</code><br><br>Pendekatan ini menjamin pengiktirafan belanja susut nilai yang stabil pada setiap kitaran perakaunan, amat bersesuaian untuk aset yang mempunyai corak penggunaan yang konsisten."
             },
             {
                 id: 3,
-                q: "Kaedah Baki Berkurangan?",
                 qFull: "Terangkan mekanisme pengiraan susut nilai menggunakan kaedah baki berkurangan (reducing balance method).",
                 aShort: "Kaedah ini mengenakan susut nilai berdasarkan suatu kadar peratusan yang tetap ke atas Nilai Buku Bersih (NBV), mengakibatkan unjuran perbelanjaan yang semakin menurun (regresif) setiap tahun.",
                 aDetail: "Mekanisme <strong>Kaedah Baki Berkurangan (Reducing Balance Method)</strong> beroperasi secara berperingkat:<br><br>• <strong>Tahun Kewangan Pertama:</strong> Nilai peratusan didarabkan secara langsung dengan Kos Asal Aset.<br>• <strong>Tahun-Tahun Berikutnya:</strong> Pengiraan diaplikasikan ke atas <em>Nilai Buku Bersih (iaitu Kos Aset ditolak dengan Susut Nilai Terkumpul terkini)</em>.<br><br>Kaedah ini paling ideal digunakan untuk aset yang mengalami penyusutan nilai secara drastik pada fasa awal, seperti aset teknologi dan kenderaan motor."
             },
             {
                 id: 4,
-                q: "Definisi Nilai Buku Bersih?",
                 qFull: "Apakah definisi yang tepat bagi terma Nilai Buku Bersih (Net Book Value - NBV)?",
                 aShort: "Ia mencerminkan baki nilai perakaunan sesuatu aset setelah menolak himpunan keseluruhan susut nilai yang telah direkodkan sehingga tarikh semasa.",
                 aDetail: "Berdasarkan prinsip perakaunan, <strong>Nilai Buku Bersih (NBV)</strong> dinilai menggunakan persamaan asas:<br><br><code>Kos Pemerolehan Aset - Susut Nilai Terkumpul (Accumulated Depreciation)</code><br><br>Angka yang terhasil ini merupakan nilai buku muktamad yang wajib dizahirkan di dalam Penyata Kedudukan Kewangan (Statement of Financial Position) syarikat berkenaan."
             },
             {
                 id: 5,
-                q: "", 
                 qFull: "Semasa proses penyelarasan pada akhir tempoh kewangan, apakah catatan lejar utama yang terlibat?",
                 aShort: "Proses penyelarasan (adjustment) ini diiktiraf di dalam Akaun Belanja Susut Nilai dan Akaun Susut Nilai Terkumpul (Akaun Kontra).",
                 aDetail: "Perekodan pelarasan tersebut menuntut kemasukan bergu (double entry) pada dua komponen strategik:<br><br>1. <strong>Akaun Belanja Susut Nilai (Depreciation Expense):</strong> Didebitkan untuk mengiktiraf penurunan nilai aset sebagai beban operasi tahunan di dalam Penyata Pendapatan Komprehensif.<br>2. <strong>Akaun Susut Nilai Terkumpul (Accumulated Depreciation):</strong> Dikreditkan bagi tujuan pengumpulan susut nilai berterkumpul. Ia berperanan sebagai akaun kontra-aset di dalam Penyata Kedudukan Kewangan."
@@ -651,350 +552,250 @@
 
         let faqData = [];
         let editingId = null;
+
+        // --- Chat Core Functions ---
         const chatBox = document.getElementById('chat-box');
-        const suggestionsContainer = document.getElementById('suggestions-container');
-        const chipsWrapper = document.getElementById('chips-wrapper');
-        const adminModal = document.getElementById('adminModal');
-        const adminTableBody = document.getElementById('adminTableBody');
 
         function loadData() {
-            const savedData = localStorage.getItem('faqAssistantData');
-            if (savedData) {
-                faqData = JSON.parse(savedData);
-            } else {
-                faqData = [...defaultFaqData];
-                saveToLocalStorage();
-            }
-            renderSuggestions();
+            const saved = localStorage.getItem('faqAppData');
+            faqData = saved ? JSON.parse(saved) : [...defaultFaqData];
+            if(!saved) saveToLocal();
             renderAdminTable();
         }
 
-        function saveToLocalStorage() {
-            localStorage.setItem('faqAssistantData', JSON.stringify(faqData));
-        }
+        function saveToLocal() { localStorage.setItem('faqAppData', JSON.stringify(faqData)); }
 
-        function shuffleArray(array) {
-            let shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        // --- UI CHATBOT ---
-        function renderSuggestions() {
-            suggestionsContainer.innerHTML = '';
+        function processQuestion(item) {
+            appendMsg('user', item.qFull);
             
-            // Tapis data: Hanya ambil yang mempunyai Tajuk Pendek (q) yang tidak kosong
-            const itemsWithShortTitle = faqData.filter(item => item.q && item.q.trim() !== '');
+            const typeId = showTyping();
             
-            if(itemsWithShortTitle.length === 0) {
-                chipsWrapper.style.display = 'none'; // Sembunyikan kawasan cip jika tiada data
-                return;
-            } else {
-                chipsWrapper.style.display = 'block';
-            }
-
-            const shuffledData = shuffleArray(itemsWithShortTitle);
-            
-            shuffledData.forEach(item => {
-                const btn = document.createElement('button');
-                btn.className = 'suggestion-chip';
-                btn.textContent = item.q;
-                btn.onclick = () => handleQuestionClick(item);
-                suggestionsContainer.appendChild(btn);
-            });
-        }
-
-        function handleQuestionClick(item) {
-            appendMessage('user', item.qFull);
-            scrollToBottom();
-            renderSuggestions(); // Shuffle selepas soalan ditanya
-
-            const typingId = showTypingIndicator();
-            scrollToBottom();
-
             setTimeout(() => {
-                removeTypingIndicator(typingId);
-                const htmlBotResponse = `
+                removeTyping(typeId);
+                const botHtml = `
                     ${item.aShort}
-                    <br><br>
-                    <button class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px; margin-top: 5px;" 
-                            onclick="showDetailAnswer(this, '${encodeURIComponent(item.aDetail)}')">
-                        Penerangan Akademik Lanjut &rarr;
-                    </button>
+                    <div style="margin-top: 12px;">
+                        <button class="btn-action" onclick="revealDetail(this, '${encodeURIComponent(item.aDetail)}')">
+                            Huraian Lanjut &darr;
+                        </button>
+                    </div>
                 `;
-                appendMessage('bot', htmlBotResponse);
-                scrollToBottom();
-            }, 800);
+                appendMsg('bot', botHtml);
+            }, 700);
         }
 
-        function showDetailAnswer(btnElement, encodedDetail) {
-            btnElement.style.display = 'none';
-            const typingId = showTypingIndicator();
-            scrollToBottom();
-
+        function revealDetail(btn, encoded) {
+            btn.style.display = 'none';
+            const typeId = showTyping();
             setTimeout(() => {
-                removeTypingIndicator(typingId);
-                const detailText = decodeURIComponent(encodedDetail);
-                appendMessage('bot', `<strong>Penerangan Lanjut:</strong><br><br>${detailText}`);
-                scrollToBottom();
+                removeTyping(typeId);
+                appendMsg('bot', `<div style="color:var(--text-main);"><strong>Penerangan Lanjut:</strong><br><br>${decodeURIComponent(encoded)}</div>`);
             }, 600);
         }
 
-        function appendMessage(sender, htmlText) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `msg ${sender}`;
-            msgDiv.innerHTML = htmlText;
-            chatBox.appendChild(msgDiv);
+        function appendMsg(sender, content) {
+            const div = document.createElement('div');
+            div.className = `msg-wrapper ${sender}`;
+            div.innerHTML = `<div class="msg-bubble">${content}</div>`;
+            chatBox.appendChild(div);
+            scrollChat();
         }
 
-        function showTypingIndicator() {
-            const id = 'typing-' + Date.now();
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'msg bot';
-            msgDiv.id = id;
-            msgDiv.innerHTML = `
-                <div class="typing-indicator">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            `;
-            chatBox.appendChild(msgDiv);
+        function showTyping() {
+            const id = 'typ-' + Date.now();
+            const div = document.createElement('div');
+            div.className = `msg-wrapper bot`;
+            div.id = id;
+            div.innerHTML = `<div class="msg-bubble" style="padding: 10px 14px;"><div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+            chatBox.appendChild(div);
+            scrollChat();
             return id;
         }
 
-        function removeTypingIndicator(id) {
+        function removeTyping(id) {
             const el = document.getElementById(id);
-            if (el) el.remove();
+            if(el) el.remove();
         }
 
-        function scrollToBottom() {
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+        function scrollChat() { chatBox.scrollTop = chatBox.scrollHeight; }
 
-        // --- FUNGSI PEMBAYANG SOALAN (AUTOCOMPLETE) & INPUT BEBAS ---
-        const userInput = document.getElementById('userInput');
-        const autocompleteList = document.getElementById('autocomplete-list');
-        const sendBtn = document.getElementById('sendBtn');
-
-        userInput.addEventListener('input', function() {
-            const val = this.value.toLowerCase().trim();
-            autocompleteList.innerHTML = '';
-
-            if (!val) {
-                autocompleteList.style.display = 'none';
-                return;
-            }
-
-            // Cari padanan soalan (Dalam Soalan Penuh ATAU Tajuk Pendek)
-            const matches = faqData.filter(item => 
-                item.qFull.toLowerCase().includes(val) || 
-                (item.q && item.q.toLowerCase().includes(val))
-            );
-
-            if (matches.length > 0) {
-                autocompleteList.style.display = 'block';
-                matches.forEach(item => {
-                    const li = document.createElement('li');
-                    
-                    // Serlahkan (highlight) teks yang sepadan
-                    const regex = new RegExp(`(${val})`, "gi");
-                    const highlightedText = item.qFull.replace(regex, "<strong>$1</strong>");
-                    
-                    li.innerHTML = highlightedText;
-                    li.onclick = () => {
-                        handleQuestionClick(item);
-                        userInput.value = '';
-                        autocompleteList.style.display = 'none';
-                    };
-                    autocompleteList.appendChild(li);
-                });
-            } else {
-                autocompleteList.style.display = 'block';
-                const li = document.createElement('li');
-                li.style.color = 'var(--text-muted)';
-                li.style.cursor = 'default';
-                li.textContent = 'Harap maaf, carian tersebut tidak ditemui. Sila cuba terminologi lain...';
-                autocompleteList.appendChild(li);
-            }
-        });
-
-        // Tutup pembayang jika klik di luar
-        document.addEventListener('click', function(e) {
-            if (e.target !== userInput && e.target !== autocompleteList) {
-                autocompleteList.style.display = 'none';
-            }
-        });
-
-        // Fungsi hantar input bebas
-        function handleManualSend() {
-            const val = userInput.value.trim();
-            if(!val) return;
-
-            // Semak jika pengguna menaip soalan yang padan tepat
-            const exactMatch = faqData.find(item => 
-                item.qFull.toLowerCase() === val.toLowerCase() || 
-                (item.q && item.q.toLowerCase() === val.toLowerCase())
-            );
-            
-            autocompleteList.style.display = 'none';
-            userInput.value = '';
-
-            if(exactMatch) {
-                handleQuestionClick(exactMatch);
-            } else {
-                appendMessage('user', val);
-                scrollToBottom();
-                const typingId = showTypingIndicator();
-                scrollToBottom();
-
-                setTimeout(() => {
-                    removeTypingIndicator(typingId);
-                    appendMessage('bot', `Harap maklum, sistem masih belum memproses maklumat berkenaan "<strong>${val}</strong>". Kami menyarankan agar anda menggunakan ciri pembayang soalan auto-jana atau meneroka senarai modul yang telah disediakan.`);
-                    scrollToBottom();
-                }, 800);
-            }
-        }
-
-        sendBtn.addEventListener('click', handleManualSend);
-        userInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') handleManualSend();
-        });
-
-
-        // --- FUNGSI DRAG-TO-SCROLL ---
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        suggestionsContainer.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - suggestionsContainer.offsetLeft;
-            scrollLeft = suggestionsContainer.scrollLeft;
-        });
-        suggestionsContainer.addEventListener('mouseleave', () => { isDown = false; });
-        suggestionsContainer.addEventListener('mouseup', () => { isDown = false; });
-        suggestionsContainer.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - suggestionsContainer.offsetLeft;
-            const walk = (x - startX) * 2;
-            suggestionsContainer.scrollLeft = scrollLeft - walk;
-        });
-
-        // --- FUNGSI RESET CHAT ---
-        function resetChat() {
-            if(confirm("Pengesahan diperlukan: Adakah anda pasti untuk memadam sejarah perbualan ini?")) {
+        function triggerResetChat() {
+            showConfirmUI("Adakah anda pasti untuk memadam rekod perbualan sesi ini?", () => {
                 chatBox.innerHTML = `
-                    <div class="msg bot" id="welcome-msg">Salam sejahtera! Saya merupakan Pembantu Perakaunan Kewangan anda. Sudah bersedia untuk mengulang kaji? <br><br>Sila buat pilihan daripada senarai topik di bawah atau taip terus persoalan anda pada ruang input yang disediakan. 👇</div>
-                `;
-                scrollToBottom();
-            }
-        }
-
-        // --- ADMIN PANEL ---
-        function openAdmin() { adminModal.style.display = 'flex'; }
-        function closeAdmin() { adminModal.style.display = 'none'; cancelEdit(); }
-
-        function renderAdminTable() {
-            adminTableBody.innerHTML = '';
-            faqData.forEach(item => {
-                // Paparkan Tajuk Pendek jika ada. Jika tiada, paparkan potongan soalan penuh berserta amaran (Tiada Butang)
-                const displayTitle = (item.q && item.q.trim() !== '') ? item.q : `<span style="color:var(--text-muted);"><i>${item.qFull.substring(0, 30)}... (Tersembunyi)</i></span>`;
-                
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>${displayTitle}</strong></td>
-                    <td class="action-btns">
-                        <button class="btn btn-warning" onclick="editQuestion(${item.id})">Ubah</button>
-                        <button class="btn btn-danger" onclick="deleteQuestion(${item.id})">Hapus</button>
-                    </td>
-                `;
-                adminTableBody.appendChild(tr);
+                <div class="msg-wrapper bot" id="welcome-msg">
+                    <div class="msg-bubble">
+                        Salam sejahtera! Saya merupakan Pembantu Perakaunan Kewangan (AI) anda. <br><br>
+                        Modul hari ini memfokuskan kepada <strong>Susut Nilai (Depreciation)</strong>. Sistem ini direka untuk membantu pemahaman anda melalui:
+                        <ul class="bot-welcome-list">
+                            <li>Analisis jawapan berstruktur (Ringkas & Terperinci)</li>
+                            <li>Enjin pembayang soalan masa nyata (Autocomplete)</li>
+                            <li>Berdasarkan silibus akademik yang tepat</li>
+                        </ul>
+                        <br>Sila taip terus persoalan anda di ruangan bawah menggunakan pembayang soalan masa nyata. 👇
+                    </div>
+                </div>`;
+                showToast("Sesi perbualan telah ditetapkan semula.");
             });
         }
 
-        function editQuestion(id) {
-            const item = faqData.find(q => q.id === id);
-            if(!item) return;
+        // Autocomplete Search
+        const uInput = document.getElementById('userInput');
+        const autoList = document.getElementById('autocomplete-list');
+        const sendBtn = document.getElementById('sendBtn');
 
+        uInput.addEventListener('input', function() {
+            const val = this.value.toLowerCase().trim();
+            autoList.innerHTML = '';
+            if(!val) { autoList.style.display = 'none'; return; }
+
+            const matches = faqData.filter(i => i.qFull.toLowerCase().includes(val));
+            
+            if(matches.length > 0) {
+                autoList.style.display = 'block';
+                matches.forEach(m => {
+                    const li = document.createElement('li');
+                    li.className = 'autocomplete-item';
+                    const regex = new RegExp(`(${val})`, "gi");
+                    li.innerHTML = m.qFull.replace(regex, "<strong style='color:var(--secondary);'>$1</strong>");
+                    li.onclick = () => { processQuestion(m); uInput.value = ''; autoList.style.display = 'none'; };
+                    autoList.appendChild(li);
+                });
+            } else {
+                autoList.style.display = 'block';
+                autoList.innerHTML = `<li class="autocomplete-item" style="color:var(--text-muted); cursor:default;">Tiada padanan. Sila ubah carian.</li>`;
+            }
+        });
+
+        document.addEventListener('click', e => { if(e.target !== uInput && e.target !== autoList) autoList.style.display = 'none'; });
+
+        function sendManualInput() {
+            const val = uInput.value.trim();
+            if(!val) return;
+            
+            const exact = faqData.find(i => i.qFull.toLowerCase() === val.toLowerCase());
+            autoList.style.display = 'none';
+            uInput.value = '';
+
+            if(exact) {
+                processQuestion(exact);
+            } else {
+                appendMsg('user', val);
+                const tId = showTyping();
+                setTimeout(() => {
+                    removeTyping(tId);
+                    appendMsg('bot', `Maaf, parameter untuk carian "<strong>${val}</strong>" tiada dalam pangkalan data modul ini. Sila taip kata kunci lain untuk bantuan autocomplete.`);
+                }, 800);
+            }
+        }
+        sendBtn.addEventListener('click', sendManualInput);
+        uInput.addEventListener('keypress', e => { if(e.key === 'Enter') sendManualInput(); });
+
+
+        // --- Admin Panel Logic ---
+        function openAdminModal() {
+            const m = document.getElementById('adminModal');
+            m.style.display = 'flex';
+            setTimeout(() => m.classList.add('show'), 10);
+        }
+        function closeAdminModal() {
+            const m = document.getElementById('adminModal');
+            m.classList.remove('show');
+            setTimeout(() => { m.style.display = 'none'; cancelEdit(); }, 300);
+        }
+
+        const adminTbody = document.getElementById('adminTableBody');
+        function renderAdminTable() {
+            adminTbody.innerHTML = '';
+            faqData.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight: 500; min-width: 250px; line-height: 1.4;">${item.qFull}</td>
+                    <td class="action-cell">
+                        <button class="btn-action" style="color:var(--warning); border-color:var(--warning);" onclick="prepEdit(${item.id})">Ubah</button>
+                        <button class="btn-action" style="color:var(--danger); border-color:var(--danger);" onclick="triggerDelete(${item.id})">Padam</button>
+                    </td>
+                `;
+                adminTbody.appendChild(tr);
+            });
+        }
+
+        function prepEdit(id) {
+            const item = faqData.find(i => i.id === id);
+            if(!item) return;
             editingId = id;
-            document.getElementById('formTitle').innerText = "Kemas Kini Rekod Soalan";
-            document.getElementById('inputShortQ').value = item.q || '';
+            document.getElementById('formTitle').innerText = "Kemas Kini Data";
             document.getElementById('inputFullQ').value = item.qFull;
             document.getElementById('inputAnsShort').value = item.aShort;
             document.getElementById('inputAnsDetail').value = item.aDetail.replace(/<br>/g, '\n');
-
-            document.getElementById('submitBtn').innerText = "💾 Simpan Kemas Kini";
-            document.getElementById('cancelEditBtn').style.display = "inline-block";
+            
+            document.getElementById('submitBtn').innerText = "Simpan Kemas Kini";
+            document.getElementById('cancelEditBtn').style.display = "block";
+            
+            // Auto skrol ke bahagian borang apabila butang Ubah ditekan pada peranti mudah alih
+            if (window.innerWidth <= 1024) {
+                document.querySelector('.modal-body').scrollTop = 0;
+            }
         }
 
         function cancelEdit() {
             editingId = null;
-            document.getElementById('addQnaForm').reset();
-            document.getElementById('formTitle').innerText = "Integrasi Soalan Baharu";
+            document.getElementById('dataForm').reset();
+            document.getElementById('formTitle').innerText = "Tambah Rekod Baharu";
             document.getElementById('submitBtn').innerText = "+ Daftar Soalan";
             document.getElementById('cancelEditBtn').style.display = "none";
         }
 
         function saveQuestion(e) {
             e.preventDefault();
-            
-            if (editingId) {
-                const index = faqData.findIndex(q => q.id === editingId);
-                if (index !== -1) {
-                    faqData[index].q = document.getElementById('inputShortQ').value.trim();
-                    faqData[index].qFull = document.getElementById('inputFullQ').value;
-                    faqData[index].aShort = document.getElementById('inputAnsShort').value;
-                    faqData[index].aDetail = document.getElementById('inputAnsDetail').value.replace(/\n/g, '<br>');
-                }
-                alert("Rekod soalan berjaya dikemas kini dalam pangkalan data.");
+            const data = {
+                id: editingId ? editingId : Date.now(),
+                qFull: document.getElementById('inputFullQ').value.trim(),
+                aShort: document.getElementById('inputAnsShort').value.trim(),
+                aDetail: document.getElementById('inputAnsDetail').value.replace(/\n/g, '<br>')
+            };
+
+            if(editingId) {
+                const idx = faqData.findIndex(i => i.id === editingId);
+                if(idx > -1) faqData[idx] = data;
+                showToast("Rekod berjaya dikemas kini.");
                 cancelEdit();
             } else {
-                const newQ = {
-                    id: Date.now(),
-                    q: document.getElementById('inputShortQ').value.trim(),
-                    qFull: document.getElementById('inputFullQ').value,
-                    aShort: document.getElementById('inputAnsShort').value,
-                    aDetail: document.getElementById('inputAnsDetail').value.replace(/\n/g, '<br>')
-                };
-                faqData.push(newQ);
-                document.getElementById('addQnaForm').reset();
-                alert("Soalan baharu berjaya didaftarkan ke dalam sistem.");
+                faqData.push(data);
+                document.getElementById('dataForm').reset();
+                showToast("Soalan baharu berjaya didaftarkan.");
             }
 
-            saveToLocalStorage();
-            renderSuggestions();
+            saveToLocal();
             renderAdminTable();
         }
 
-        function deleteQuestion(id) {
-            if(confirm("Tindakan ini tidak boleh diundur. Adakah anda pasti untuk menghapuskan rekod soalan ini?")) {
-                faqData = faqData.filter(item => item.id !== id);
+        function triggerDelete(id) {
+            showConfirmUI("Tindakan ini tidak boleh dipulihkan. Teruskan memadam rekod ini?", () => {
+                faqData = faqData.filter(i => i.id !== id);
                 if(editingId === id) cancelEdit();
-                saveToLocalStorage();
-                renderSuggestions();
+                saveToLocal();
                 renderAdminTable();
-            }
+                showToast("Rekod dihapuskan.");
+            });
         }
 
-        function resetToDatabaseDefault() {
-            if(confirm("AMARAN: Prosedur ini akan melupuskan segala kemas kini data semasa dan mengembalikan struktur data kepada versi asal. Adakah anda ingin meneruskan?")) {
+        function triggerResetDB() {
+            showConfirmUI("AMARAN: Ini akan melupuskan data semasa dan mengembalikan data asal kilang. Teruskan?", () => {
                 faqData = [...defaultFaqData];
-                saveToLocalStorage();
+                saveToLocal();
                 cancelEdit();
-                renderSuggestions();
                 renderAdminTable();
-            }
+                showToast("Pangkalan data dipulihkan.");
+            });
         }
 
-        // Tutup modal jika klik di luar kawasan
-        window.onclick = function(event) {
-            if (event.target == adminModal) closeAdmin();
-            if (event.target == loginModal) closeLoginModal();
+        // Close Modals on outside click
+        window.onclick = function(e) {
+            if(e.target.classList.contains('modal-backdrop')) {
+                if(e.target.id === 'loginModal') closeLoginModal();
+                if(e.target.id === 'adminModal') closeAdminModal();
+                if(e.target.id === 'confirmModal') closeConfirmModal();
+            }
         }
 
         window.onload = loadData;
