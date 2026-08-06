@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>FA Assistant - Inovasi Perakaunan</title>
 
-<!-- MathJax Configuration & Library (Untuk Paparan Formula Pengiraan LaTeX) -->
+<!-- MathJax Configuration & Library -->
     <script>
         window.MathJax = {
             tex: {
@@ -19,10 +19,10 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<!-- FontAwesome untuk Paparan Ikon Kunci, Rujukan & Pentadbiran -->
+<!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Firebase App (Compat SDK), Auth & Realtime Database -->
+<!-- Firebase App (Compat SDK) & Database -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -50,15 +50,14 @@ body {
             background-color: var(--bg-body); 
             color: var(--text-main); 
             height: 100vh;
-            height: 100dvh; /* Dynamic viewport height for mobile browser safety */
+            height: 100dvh;
             display: flex; 
             flex-direction: column; 
             overflow: hidden; 
             -webkit-tap-highlight-color: transparent;
         }
 
-/* Typography & Utilities */
-        a { text-decoration: none; }
+a { text-decoration: none; }
         ul { list-style: none; }
         button { font-family: inherit; outline: none; }
 
@@ -66,11 +65,10 @@ body {
             display: inline-flex; align-items: center; justify-content: center;
             padding: 10px 20px; border-radius: 12px; font-weight: 600; cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: none; font-size: 0.9rem;
-            min-height: 44px; /* Accessible touch target size */
+            min-height: 44px;
         }
         .btn-primary { background-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
         .btn-primary:hover { background-color: #1e293b; transform: translateY(-1px); }
-        .btn-primary:active { transform: translateY(0); }
         .btn-accent { background-color: var(--accent); color: white; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
         .btn-accent:hover { background-color: #059669; }
         .btn-danger { background-color: var(--danger); color: white; }
@@ -80,8 +78,7 @@ body {
         .btn-outline { background: transparent; border: 1px solid var(--border-light); color: var(--text-main); }
         .btn-outline:hover { background: var(--bg-body); }
 
-/* Interactive actions in chat */
-        .btn-action { 
+.btn-action { 
             background: transparent; 
             border: 1px solid var(--secondary); 
             color: var(--secondary); 
@@ -116,8 +113,7 @@ header {
         .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px;}
         .logo span { color: var(--secondary); font-size: 1.4rem; }
 
-/* Trigger button for student keys */
-        .student-api-trigger-btn {
+.student-api-trigger-btn {
             background: #1e293b;
             border: 1px solid #334155;
             color: #f8fafc;
@@ -148,8 +144,7 @@ header {
             background: radial-gradient(circle at top right, #e0e7ff 0%, var(--bg-body) 60%);
         }
 
-/* Chat Window */
-        .chat-container {
+.chat-container {
             width: 100%;
             max-width: 950px;
             background: var(--bg-chat);
@@ -197,7 +192,7 @@ header {
             border-bottom: 1px solid var(--border-light);
             overflow-x: auto;
             flex-shrink: 0;
-            scrollbar-width: none; /* Hide scrollbar for clean aesthetics */
+            scrollbar-width: none;
         }
         .ai-tools-bar::-webkit-scrollbar { display: none; }
         .tool-btn {
@@ -235,8 +230,7 @@ header {
         .chat-body::-webkit-scrollbar { width: 6px; }
         .chat-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-/* Messages & Tables within Chat Bubble formatting */
-        .msg-wrapper { display: flex; flex-direction: column; width: 100%; animation: fadeIn 0.4s ease; }
+.msg-wrapper { display: flex; flex-direction: column; width: 100%; animation: fadeIn 0.4s ease; }
         .msg-wrapper.user { align-items: flex-end; }
         .msg-wrapper.bot { align-items: flex-start; }
 
@@ -262,16 +256,14 @@ header {
             border: 1px solid var(--border-light);
         }
 
-/* Rendered Clean HTML Tables from AI Response */
-        .msg-bubble table { width: 100%; border-collapse: collapse; margin: 12px 0; background: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-light); }
+.msg-bubble table { width: 100%; border-collapse: collapse; margin: 12px 0; background: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-light); }
         .msg-bubble th, .msg-bubble td { padding: 10px 14px; border: 1px solid var(--border-light); font-size: 0.9rem; text-align: left; }
         .msg-bubble th { background: #f1f5f9; font-weight: 700; color: var(--primary); }
 
 .bot-welcome-list { margin-top: 10px; margin-left: 10px; padding-left: 15px; border-left: 3px solid var(--secondary); color: var(--text-muted); font-size: 0.9rem;}
         .bot-welcome-list li { margin-bottom: 6px; }
 
-/* Speaker & Action Buttons in Chat Bubbles */
-        .bubble-actions {
+.bubble-actions {
             display: flex;
             gap: 8px;
             margin-top: 10px;
@@ -291,9 +283,7 @@ header {
             transition: color 0.2s;
             min-height: 32px;
         }
-        .bubble-btn:hover {
-            color: var(--secondary);
-        }
+        .bubble-btn:hover { color: var(--secondary); }
 
 .quiz-option {
             background: white;
@@ -319,8 +309,7 @@ header {
         .quiz-option.correct-choice { background-color: #ecfdf5 !important; border-color: var(--accent) !important; color: #065f46 !important; font-weight: 700; }
         .quiz-option.wrong-choice { background-color: #fef2f2 !important; border-color: var(--danger) !important; color: #991b1b !important; }
 
-/* Styling Maklumbalas Jawapan Kuiz Pelajar */
-        .quiz-feedback-box {
+.quiz-feedback-box {
             border-radius: 14px;
             margin-top: 12px;
             padding: 16px;
@@ -331,31 +320,11 @@ header {
             border-width: 1px;
             animation: fadeIn 0.3s ease;
         }
-        .quiz-feedback-box.correct {
-            background-color: #ecfdf5;
-            border-color: #a7f3d0;
-            color: #065f46;
-        }
-        .quiz-feedback-box.wrong {
-            background-color: #fef2f2;
-            border-color: #fca5a5;
-            color: #991b1b;
-        }
-        .feedback-section-title {
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-top: 10px;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .feedback-section-title i {
-            font-size: 1rem;
-        }
+        .quiz-feedback-box.correct { background-color: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+        .quiz-feedback-box.wrong { background-color: #fef2f2; border-color: #fca5a5; color: #991b1b; }
+        .feedback-section-title { font-weight: 700; font-size: 0.95rem; margin-top: 10px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
 
-/* Typing Indicator */
-        .typing { display: flex; gap: 5px; padding: 6px 4px; }
+.typing { display: flex; gap: 5px; padding: 6px 4px; }
         .dot { width: 7px; height: 7px; background: #94a3b8; border-radius: 50%; animation: typeBounce 1.4s infinite ease-in-out both; }
         .dot:nth-child(1) { animation-delay: -0.32s; }
         .dot:nth-child(2) { animation-delay: -0.16s; }
@@ -400,9 +369,7 @@ header {
         }
         .modal-backdrop.show { display: flex; opacity: 1; }
 
-#confirmModal {
-            z-index: 200;
-        }
+#confirmModal { z-index: 200; }
 
 .modal-card {
             background: #ffffff; width: 100%; border-radius: 24px; overflow: hidden;
@@ -422,53 +389,29 @@ header {
 .modal-body { padding: 24px; overflow-y: auto; flex: 1; }
         .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 10px; background: var(--bg-body); flex-shrink: 0;}
 
-.admin-grid { 
-            display: grid; 
-            grid-template-columns: 4fr 6fr; 
-            gap: 24px; 
-            align-items: start;
-        }
-
-/* Grid penjenamaan responsif khusus pentadbir */
-        .admin-branding-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            width: 100%;
-        }
-
-@media (max-width: 640px) {
-            .admin-branding-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-        }
+.admin-grid { display: grid; grid-template-columns: 4fr 6fr; gap: 24px; align-items: start; }
+        .admin-branding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
 
 .form-group { margin-bottom: 16px; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.85rem; color: var(--text-main);}
         .form-control { width: 100%; padding: 12px 16px; border: 1px solid var(--border-light); border-radius: 12px; font-size: 0.9rem; background: #f8fafc; transition: 0.3s; outline: none;}
         .form-control:focus { background: white; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(14,165,233,0.1); }
-        textarea.form-control { resize: vertical; min-height: 180px; line-height: 1.6; }
-        .error-text { color: var(--danger); font-size: 0.8rem; margin-top: 6px; display: none; font-weight: 500;}
 
-/* Admin Table & Wrappers */
-        .table-wrap { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; background: white;}
+textarea.form-control { resize: vertical; min-height: 180px; line-height: 1.6; transition: min-height 0.3s ease; }
+        textarea.form-control.expanded-textarea { min-height: 480px !important; font-size: 0.95rem; box-shadow: 0 0 0 3px rgba(14,165,233,0.2); }
+
+.error-text { color: var(--danger); font-size: 0.8rem; margin-top: 6px; display: none; font-weight: 500;}
+
+.table-wrap { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; background: white;}
         .table-responsive { width: 100%; overflow-x: auto; max-height: 420px;}
         .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; table-layout: fixed; min-width: 650px; }
         .data-table th, .data-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-light); vertical-align: middle; word-wrap: break-word; overflow: hidden; }
         .data-table th { background: #f8fafc; font-weight: 600; position: sticky; top: 0; z-index: 10; color: var(--primary);}
         .data-table tr:hover td { background: #f1f5f9; }
 
-.action-cell { 
-            display: flex; 
-            gap: 6px; 
-            justify-content: center; 
-            align-items: center; 
-            flex-wrap: wrap; 
-        }
+.action-cell { display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: wrap; }
 
-/* Toast Notification */
-        .toast {
+.toast {
             visibility: hidden; min-width: 280px; background-color: var(--primary); color: white;
             text-align: center; border-radius: 30px; padding: 12px 24px; position: fixed; z-index: 1000;
             left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px); font-weight: 500; font-size: 0.9rem;
@@ -476,43 +419,21 @@ header {
         }
         .toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
 
-.api-toggle-btn {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            outline: none;
-        }
+.api-toggle-btn { background: transparent; border: none; cursor: pointer; outline: none; }
 
-/* Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
         @keyframes typeBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-.secure-input-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
+.secure-input-group { display: flex; gap: 8px; align-items: center; }
         .input-icon-btn {
-            background: var(--bg-body);
-            border: 1px solid var(--border-light);
-            padding: 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: var(--bg-body); border: 1px solid var(--border-light); padding: 12px; border-radius: 12px;
+            cursor: pointer; color: var(--text-muted); transition: all 0.2s; display: flex; align-items: center; justify-content: center;
         }
-        .input-icon-btn:hover {
-            color: var(--secondary);
-            background: #e2e8f0;
-        }
+        .input-icon-btn:hover { color: var(--secondary); background: #e2e8f0; }
 
-/* Responsive Viewport Breakpoints */
-        @media (max-width: 1024px) {
+@media (max-width: 1024px) {
             .modal-card.lg { max-width: 90vw; }
             .admin-grid { grid-template-columns: 1fr; gap: 24px; }
             .table-responsive { max-height: 320px; }
@@ -521,43 +442,17 @@ header {
 
 @media (max-width: 768px) {
             body { background: white; }
-            header { 
-                padding: 10px 16px; 
-                min-height: auto; 
-                box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
-                justify-content: space-between; 
-            }
+            header { padding: 10px 16px; min-height: auto; box-shadow: 0 1px 3px rgba(0,0,0,0.05); justify-content: space-between; }
             .logo { font-size: 1.15rem; }
             .app-main { padding: 0; background: none; }
-
-.chat-container { 
-                border-radius: 0; 
-                max-width: 100%; 
-                box-shadow: none; 
-                height: 100%; 
-                border-top: 1px solid var(--border-light);
-            }
-
-.chat-header { 
-                padding: 12px 16px; 
-                flex-direction: row; 
-                flex-wrap: wrap; 
-                gap: 8px; 
-            }
-            .chat-header-actions {
-                width: 100%;
-                justify-content: space-between;
-            }
-            .bab-selector {
-                flex: 1;
-                max-width: none;
-            }
-
-.chat-body { padding: 16px; }
+            .chat-container { border-radius: 0; max-width: 100%; box-shadow: none; height: 100%; border-top: 1px solid var(--border-light); }
+            .chat-header { padding: 12px 16px; flex-direction: row; flex-wrap: wrap; gap: 8px; }
+            .chat-header-actions { width: 100%; justify-content: space-between; }
+            .bab-selector { flex: 1; max-width: none; }
+            .chat-body { padding: 16px; }
             .msg-bubble { max-width: 90%; font-size: 0.9rem; }
             .input-area { padding: 12px 16px; }
-
-.modal-card.lg { max-width: 100%; height: 100%; max-height: 100vh; border-radius: 0; }
+            .modal-card.lg { max-width: 100%; height: 100%; max-height: 100vh; border-radius: 0; }
             .modal-body { padding: 16px; }
         }
 
@@ -588,19 +483,16 @@ header {
         </div>
 
 <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <!-- Language Selector Toggle -->
             <button type="button" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; min-height: 36px;" onclick="toggleLanguage()">
                 <i class="fa-solid fa-language" style="color: var(--secondary);"></i>
                 <span id="langDisplay">MY</span>
             </button>
 
-<!-- Student API Keys Button -->
-            <button type="button" class="student-api-trigger-btn" onclick="openStudentApiModal()">
-                <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> <span data-translate="studentKeys">API Keys Pelajar</span>
+<button type="button" class="student-api-trigger-btn" onclick="openStudentApiModal()">
+                <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> <span data-translate="studentKeys">Kunci API Pelajar</span>
             </button>
 
-<!-- Lecturer Access Button -->
-            <button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; min-height: 36px;" onclick="showLoginModal()">
+<button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; min-height: 36px;" onclick="showLoginModal()">
                 <span data-translate="lecturerPortal">Akses Pensyarah (Admin)</span>
             </button>
         </div>
@@ -621,14 +513,14 @@ header {
 
 <button class="reset-btn" onclick="triggerResetChat()">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                        <span data-translate="reset">Reset</span>
+                        <span data-translate="reset">Set Semula</span>
                     </button>
                 </div>
             </div>
 
 <div class="ai-tools-bar">
                 <button class="tool-btn" onclick="triggerAIQuiz()">
-                    <i class="fa-solid fa-brain" style="color: #f59e0b;"></i> <span data-translate="quizBtn">📝 Uji Minda (Quiz)</span>
+                    <i class="fa-solid fa-brain" style="color: #f59e0b;"></i> <span data-translate="quizBtn">📝 Uji Minda (Kuiz)</span>
                 </button>
             </div>
 
@@ -682,7 +574,7 @@ header {
 <div class="form-group">
                     <label style="display:flex; justify-content:space-between; align-items:center;">
                         <span>1. Gemini 3.5 Flash Key (Sembang & Kuiz)</span>
-                        <a href="https://aistudio.google.com/" target="_blank" style="color:var(--secondary); font-size:0.75rem;"><i class="fa-solid fa-up-right-from-square"></i> Dapatkan Key</a>
+                        <a href="https://aistudio.google.com/" target="_blank" style="color:var(--secondary); font-size:0.75rem;"><i class="fa-solid fa-up-right-from-square"></i> Dapatkan Kunci API</a>
                     </label>
                     <div class="secure-input-group">
                         <input type="password" id="studentKeyFlash" class="form-control" placeholder="Tampal Kunci API Gemini 3.5 Flash..." onchange="saveStudentKeyField('studentKeyFlash', 'student_key_flash')">
@@ -710,8 +602,7 @@ header {
         </div>
     </div>
 
-<!-- Modal Log Masuk Pentadbir -->
-    <div class="modal-backdrop" id="loginModal">
+<div class="modal-backdrop" id="loginModal">
         <div class="modal-card md">
             <div class="modal-header">
                 <h2>Log Masuk Pentadbir</h2>
@@ -733,8 +624,7 @@ header {
         </div>
     </div>
 
-<!-- Modal Set Semula Kata Laluan Baru -->
-    <div class="modal-backdrop" id="resetPasswordModal">
+<div class="modal-backdrop" id="resetPasswordModal">
         <div class="modal-card md">
             <div class="modal-header">
                 <h2>Set Semula Kata Laluan</h2>
@@ -745,7 +635,6 @@ header {
                     <div class="form-group">
                         <label>Kunci Pemulihan Keselamatan (Master Recovery Key)</label>
                         <input type="password" id="inputRecoveryKey" class="form-control" placeholder="Masukkan Master Recovery Key" required>
-                        <span class="visually-hidden">Nota: Kunci pemulihan ialah AiPoliRecovery2026!</span>
                     </div>
                     <div class="form-group">
                         <label>Kata Laluan Baharu</label>
@@ -762,8 +651,7 @@ header {
         </div>
     </div>
 
-<!-- Modal Papan Pemuka Pentadbir -->
-    <div class="modal-backdrop" id="adminModal">
+<div class="modal-backdrop" id="adminModal">
         <div class="modal-card lg">
             <div class="modal-header">
                 <h2 data-translate="adminTitle">Papan Pemuka Pentadbir (Pengurusan Nota Kuliah)</h2>
@@ -779,11 +667,11 @@ header {
                         <i class="fa-solid fa-share-nodes"></i> <span data-translate="sharedKeyTitle">Kunci API Gemini Kongsi (Lecturer Shared Key)</span>
                     </h4>
                     <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: -4px;" data-translate="sharedKeyDesc">
-                        Tampal kunci API pensyarah di bawah untuk membolehkan semua pelajar anda terus berbual dengan AI tanpa perlu memasukkan kunci API mereka sendiri. Kunci ini disimpan selamat di pelayan cloud (Firebase) and disembunyikan sepenuhnya daripada fail kod HTML pelajar.
+                        Tampal kunci API pensyarah di bawah untuk membolehkan semua pelajar anda terus berbual dengan AI tanpa perlu memasukkan kunci API mereka sendiri. Kunci ini disimpan selamat di pelayan awan (Firebase) dan disembunyikan daripada fail kod HTML pelajar.
                     </p>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center; background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; flex: 1; min-width: 250px; padding: 2px 12px;">
-                            <input type="password" id="inputSharedApiKey" class="form-control" style="border: none; background: transparent; padding: 8px 0; margin: 0; box-shadow: none;" placeholder="Tampal API Key pensyarah di sini...">
+                            <input type="password" id="inputSharedApiKey" class="form-control" style="border: none; background: transparent; padding: 8px 0; margin: 0; box-shadow: none;" placeholder="Tampal Kunci API pensyarah di sini...">
                             <button type="button" class="api-toggle-btn" style="color: var(--text-muted);" onclick="toggleSharedKeyVisibility()">
                                 <i id="sharedEyeIcon" class="fa-solid fa-eye-slash" style="font-size: 0.85rem;"></i>
                             </button>
@@ -801,7 +689,7 @@ header {
                     </p>
                     <div class="admin-branding-grid">
                         <div class="form-group" style="margin-bottom: 0;">
-                            <label data-translate="lblMainTitle">Nama Singkat Sistem (Header)</label>
+                            <label data-translate="lblMainTitle">Nama Ringkas Sistem (Header)</label>
                             <input type="text" id="inputBrandingMain" class="form-control" placeholder="Cth: FA Assistant">
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
@@ -829,7 +717,12 @@ header {
                                 <input type="text" id="inputNoteTitle" class="form-control" placeholder="Cth: Ciri Kualitatif Maklumat" required>
                             </div>
                             <div class="form-group">
-                                <label data-translate="lblContent">Isi Kandungan Nota</label>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <label data-translate="lblContent" style="margin-bottom: 0;">Isi Kandungan Nota</label>
+                                    <button type="button" class="btn btn-outline" id="expandNoteBtn" style="padding: 4px 10px; font-size: 0.75rem; min-height: 28px; border-radius: 8px;" onclick="toggleExpandNoteContent()" title="Besarkan / Kecilkan Ruang Nota">
+                                        <i id="expandNoteIcon" class="fa-solid fa-expand"></i> <span id="expandNoteText">Besarkan</span>
+                                    </button>
+                                </div>
                                 <textarea id="inputNoteContent" class="form-control" placeholder="Tampal atau tulis teks kandungan nota di sini..." required></textarea>
                             </div>
                             <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 15px;">
@@ -867,7 +760,6 @@ header {
     </div>
 
 <script>
-        // --- STREAMING_CHUNK: Initializing Firebase configuration and setting up variables... ---
         function escapeHtml(text) {
             if (!text) return "";
             return text
@@ -898,7 +790,6 @@ header {
         let db = null;
         let isFirebaseConnected = false;
 
-        // Global quiz registry to avoid complex nested onclick quote strings
         window.quizRegistry = {};
 
         if (firebaseConfig.apiKey !== "API_KEY_ANDA") {
@@ -910,11 +801,8 @@ header {
             } catch (error) {
                 console.error("Ralat memulakan Firebase: ", error);
             }
-        } else {
-            console.warn("Firebase tidak diaktifkan. Sistem menggunakan storan tempatan (LocalStorage) sebagai fallback.");
         }
 
-        // --- STREAMING_CHUNK: Handling admin database operations and settings... ---
         function loadSharedApiKey() {
             if (isFirebaseConnected) {
                 db.ref('settings/shared_api_key').on('value', (snapshot) => {
@@ -929,7 +817,7 @@ header {
             if (isFirebaseConnected) {
                 db.ref('settings/shared_api_key').set(keyInput)
                     .then(() => {
-                        showToast("Kunci API Kongsi disimpan di Cloud Database!");
+                        showToast("Kunci API Kongsi disimpan di Pangkalan Data Awan!");
                     }).catch(err => {
                         showToast("Ralat menyimpan: " + err.message);
                     });
@@ -1008,13 +896,8 @@ header {
             document.getElementById('chatSubTitle').innerHTML = `<div class="status-dot"></div> ${escapeHtml(brandingSub)}`;
             document.getElementById('inputBrandingMain').value = brandingMain;
             document.getElementById('inputBrandingSub').value = brandingSub;
-            
-            document.querySelectorAll('.headerMainTitlePlaceholder').forEach(el => {
-                el.textContent = brandingMain;
-            });
         }
 
-        // --- STREAMING_CHUNK: Implementing student API key management... ---
         function openStudentApiModal() {
             const modal = document.getElementById('studentApiModal');
             modal.style.display = 'flex';
@@ -1065,7 +948,6 @@ header {
             closeStudentApiModal();
         }
 
-        // --- STREAMING_CHUNK: Creating helper functions for local storage and Toast alerts... ---
         function renderMath() {
             if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
                 window.MathJax.typesetPromise().catch(err => console.warn("MathJax error: ", err));
@@ -1100,7 +982,6 @@ header {
             closeConfirmModal();
         });
 
-        // --- STREAMING_CHUNK: Setting up administrative login and recovery systems... ---
         async function verifyPassword(password) {
             const msgUint8 = new TextEncoder().encode(password);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
@@ -1165,7 +1046,7 @@ header {
             errorDiv.style.display = 'none';
 
             if (recoveryInput !== RECOVERY_KEY) {
-                errorDiv.innerText = "Master Recovery Key tidak sah!";
+                errorDiv.innerText = "Kunci Pemulihan Utama tidak sah!";
                 errorDiv.style.display = 'block';
                 return;
             }
@@ -1201,13 +1082,12 @@ header {
             }
         }
 
-        // --- STREAMING_CHUNK: Defining default syllabus notes database fallback... ---
         const defaultNotesList = [
             {
                 id: "default_1",
                 bab: "Bab 1: Pengenalan",
                 title: "Konsep & Prinsip Asas",
-                content: "Perakaunan Kewangan merupakan proses mengenal pasti, merekod, mengelas, merumus dan melaporkan transaksi kewangan perniagaan kepada pengguna luaran.\n\nTujuan utama laporan kewangan adalah menyediakan maklumat yang berguna tentang kedudukan kewangan (Penyata Kedudukan Kewangan) and prestasi operasi (Penyata Pendapatan) entiti bagi membantu membuat keputusan ekonomi.\n\nCiri-ciri Kualitatif Maklumat Perakaunan:\n1. Kerelevanan (Relevance) - Maklumat boleh mempengaruhi keputusan ekonomi pengguna.\n2. Perwakilan Setia (Faithful Representation) - Laporan mesti tepat, lengkap, neutral and bebas daripada ralat ketara.\n\nPrinsip Asas Perakaunan:\n• Entiti Berasingan: Perniagaan and pemiliknya adalah dua pihak berasan dari segi undang-undang perakaunan.\n• Usaha Berterusan: Perniagaan diandaikan akan terus beroperasi untuk tempoh masa yang tidak dapat dihadkan.\n• Keberterusan Wang: Hanya transaksi yang dapat dinyatakan dalam nilai wang sahaja direkodkan."
+                content: "Perakaunan Kewangan merupakan proses mengenal pasti, merekod, mengelas, merumus dan melaporkan transaksi kewangan perniagaan kepada pengguna luaran.\n\nTujuan utama laporan kewangan adalah menyediakan maklumat yang berguna tentang kedudukan kewangan (Penyata Kedudukan Kewangan) dan prestasi operasi (Penyata Pendapatan) entiti bagi membantu membuat keputusan ekonomi.\n\nCiri-ciri Kualitatif Maklumat Perakaunan:\n1. Kerelevanan (Relevance) - Maklumat boleh mempengaruhi keputusan ekonomi pengguna.\n2. Perwakilan Setia (Faithful Representation) - Laporan mesti tepat, lengkap, neutral dan bebas daripada ralat ketara.\n\nPrinsip Asas Perakaunan:\n• Entiti Berasingan: Perniagaan dan pemiliknya adalah dua pihak berasingan dari segi undang-undang perakaunan.\n• Usaha Berterusan: Perniagaan diandaikan akan terus beroperasi untuk tempoh masa yang tidak dapat dihadkan.\n• Keberterusan Wang: Hanya transaksi yang dapat dinyatakan dalam nilai wang sahaja direkodkan."
             },
             {
                 id: "default_2",
@@ -1219,93 +1099,64 @@ header {
                 id: "default_3",
                 bab: "Bab 2: Susut Nilai",
                 title: "Kaedah Baki Berkurangan",
-                content: "Formula Kaedah Baki Berkurangan (Reducing Balance Method):\n$$\\text{Belanja Susut Nilai} = \\text{Kadar Peratusan (\\%)} \\times \\text{Nilai Buku Bersih (NBV)}$$\n\nDi mana, Nilai Buku Bersih (NBV):\n$$\\text{NBV} = \\text{Kos Aset} - \\text{Susut Nilai Terkumpul (Accumulated Depreciation)}$$\n\nKaedah ini paling ideal digunakan untuk aset yang mengalami penyusutan nilai secara drastik pada fasa awal, seperti aset teknologi and kenderaan motor."
-            },
-            {
-                id: "default_4",
-                bab: "Bab 3: Persamaan Perakaunan",
-                title: "Persamaan Asas",
-                content: "Persamaan asas perakaunan yang menjadi asas kepada sistem rekod bergu adalah:\n$$\\text{Aset} = \\text{Liabiliti} + \\text{Ekuiti Pemilik}$$\n\nKomponen Utama:\n• Aset: Sumber ekonomi yang dikawal oleh entiti hasil daripada transaksi lampau (cth: Tunai, Stok, Pemiutang, Kenderaan).\n• Liabiliti: Obligasi kewangan semasa entiti yang timbul daripada transaksi lampau (cth: Pinjaman Bank, Pemiutang Perdagangan).\n• Ekuiti Pemilik: Kepentingan pemilik dalam aset entiti setelah menolak semua liabilitinya (terdiri daripada Modal Awal + Untung Bersih - Ambilan)."
-            },
-            {
-                id: "default_5",
-                bab: "Bab 4: Penyata Kewangan",
-                title: "Kandungan Penyata Kewangan",
-                content: "Penyata Kewangan terdiri daripada komponen utama:\n1. Penyata Pendapatan Komprehensif (Akaun Untung Rugi): Melaporkan prestasi operasi perniagaan sepanjang tempoh kewangan (Hasil - Belanja = Untung Bersih).\n2. Penyata Kedudukan Kewangan (Kunci Kira-kira): Melaporkan status kedudukan kewangan perniagaan pada tarikh tertentu, menyenaraikan baki semua Aset, Liabiliti and Ekuiti Pemilik.\n\nFormat Penyata Kedudukan Kewangan:\n• Aset Bukan Semasa (Kenderaan, Perabot, ditolak Susut Nilai Terkumpul).\n• Aset Semasa (Tunai, Bank, Penghutang, Inventori Akhir).\n• Liabiliti Semasa & Liabiliti Bukan Semasa.\n• Ekuiti Pemilik (Modal Awal + Untung Bersih - Ambilan)."
+                content: "Formula Kaedah Baki Berkurangan (Reducing Balance Method):\n$$\\text{Belanja Susut Nilai} = \\text{Kadar Peratusan (\\%)} \\times \\text{Nilai Buku Bersih (NBV)}$$\n\nDi mana, Nilai Buku Bersih (NBV):\n$$\\text{NBV} = \\text{Kos Aset} - \\text{Susut Nilai Terkumpul (Accumulated Depreciation)}$$\n\nKaedah ini paling ideal digunakan untuk aset yang mengalami penyusutan nilai secara drastik pada fasa awal, seperti aset teknologi dan kenderaan motor."
             }
         ];
 
         let currentNotesList = [];
         let noteEditingId = null;
 
-        // --- STREAMING_CHUNK: Initializing Firebase authentication stream and fallback loading... ---
         function loadNotesData() {
             if (isFirebaseConnected) {
                 const runAuthChain = async () => {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         try {
-                            console.log("Mencuba mendaftar masuk menggunakan Token Kustom...");
                             await firebase.auth().signInWithCustomToken(__initial_auth_token);
-                            console.log("Log masuk Token Kustom berjaya.");
                             return true;
                         } catch (tokenError) {
-                            console.warn("Log masuk Token Kustom tidak sepadan. Mencuba log masuk tanpa nama (Anonymous)...");
+                            console.warn("Log masuk token kustom tidak sepadan. Mencuba tanpa nama...");
                         }
                     }
-                    
                     try {
                         await firebase.auth().signInAnonymously();
-                        console.log("Log masuk Tanpa Nama (Anonymous Auth) berjaya.");
                         return true;
                     } catch (anonError) {
-                        if (anonError.code === 'auth/admin-restricted-operation') {
-                            console.warn("Nota Keselamatan: Ciri 'Anonymous Sign-In' belum diaktifkan di Firebase Console anda.");
-                        } else {
-                            console.warn("Sistem pengesahan Firebase tidak dapat dimulakan:", anonError.message);
-                        }
                         return false;
                     }
                 };
 
-                runAuthChain()
-                    .then((authSuccess) => {
-                        if (authSuccess) {
-                            db.ref('notes_list').on('value', (snapshot) => {
-                                const data = snapshot.val();
-                                currentNotesList = [];
-                                if (data) {
-                                    Object.keys(data).forEach(key => {
-                                        currentNotesList.push({ id: key, ...data[key] });
+                runAuthChain().then((authSuccess) => {
+                    if (authSuccess) {
+                        db.ref('notes_list').on('value', (snapshot) => {
+                            const data = snapshot.val();
+                            currentNotesList = [];
+                            if (data) {
+                                Object.keys(data).forEach(key => {
+                                    currentNotesList.push({ id: key, ...data[key] });
+                                });
+                            } else {
+                                currentNotesList = [...defaultNotesList];
+                                currentNotesList.forEach(item => {
+                                    db.ref('notes_list/' + item.id).set({
+                                        bab: item.bab,
+                                        title: item.title,
+                                        content: item.content
                                     });
-                                } else {
-                                    currentNotesList = [...defaultNotesList];
-                                    currentNotesList.forEach(item => {
-                                        db.ref('notes_list/' + item.id).set({
-                                            bab: item.bab,
-                                            title: item.title,
-                                            content: item.content
-                                        });
-                                    });
-                                }
-                                updateStudentChapterDropdown();
-                                renderAdminNotesTable();
-                            }, (error) => {
-                                console.warn("Ralat Firebase Database:", error.message);
-                                isFirebaseConnected = false;
-                                loadFallbackLocalBrandAndNotes();
-                            });
-                            loadSharedApiKey();
-                            loadBrandingSettings();
-                        } else {
+                                });
+                            }
+                            updateStudentChapterDropdown();
+                            renderAdminNotesTable();
+                        }, (error) => {
                             isFirebaseConnected = false;
                             loadFallbackLocalBrandAndNotes();
-                        }
-                    })
-                    .catch((error) => {
-                        console.warn("Ralat aliran Firebase Auth:", error.message);
+                        });
+                        loadSharedApiKey();
+                        loadBrandingSettings();
+                    } else {
                         isFirebaseConnected = false;
                         loadFallbackLocalBrandAndNotes();
-                    });
+                    }
+                });
             } else {
                 loadFallbackLocalBrandAndNotes();
             }
@@ -1333,7 +1184,7 @@ header {
             
             const optAll = document.createElement('option');
             optAll.value = "Semua";
-            optAll.textContent = "Semua Bab / Topik";
+            optAll.textContent = window.currentLang === 'ms' ? "Semua Bab / Topik" : "All Chapters / Topics";
             selector.appendChild(optAll);
             
             uniqueBabs.forEach(bab => {
@@ -1366,13 +1217,12 @@ header {
             setTimeout(() => { m.style.display = 'none'; }, 300);
         }
 
-        // --- STREAMING_CHUNK: Managing the lecture notes admin tables... ---
         function renderAdminNotesTable() {
             const tbody = document.getElementById('adminNotesTableBody');
             tbody.innerHTML = '';
             
             if (currentNotesList.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">Tiada nota kuliah dijumpai. Sila tambah nota baru.</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">${window.currentLang === 'ms' ? 'Tiada nota kuliah dijumpai. Sila tambah nota baru.' : 'No lecture notes found. Please add a new note.'}</td></tr>`;
                 return;
             }
 
@@ -1410,9 +1260,34 @@ header {
         function cancelNoteEdit() {
             noteEditingId = null;
             document.getElementById('noteForm').reset();
+            const noteTextarea = document.getElementById('inputNoteContent');
+            if (noteTextarea) noteTextarea.classList.remove('expanded-textarea');
+            const icon = document.getElementById('expandNoteIcon');
+            const textSpan = document.getElementById('expandNoteText');
+            if (icon) icon.className = 'fa-solid fa-expand';
+            if (textSpan) textSpan.textContent = window.currentLang === 'ms' ? 'Besarkan' : 'Expand';
+
             document.getElementById('formTitle').innerText = window.currentLang === 'ms' ? "Tambah/Ubah Nota" : "Add/Edit Note";
             document.getElementById('saveNoteBtn').innerText = window.currentLang === 'ms' ? "💾 Simpan Nota" : "💾 Save Note";
             document.getElementById('cancelEditNoteBtn').style.display = 'none';
+        }
+
+        function toggleExpandNoteContent() {
+            const textarea = document.getElementById('inputNoteContent');
+            const icon = document.getElementById('expandNoteIcon');
+            const textSpan = document.getElementById('expandNoteText');
+            if (!textarea) return;
+
+            if (textarea.classList.contains('expanded-textarea')) {
+                textarea.classList.remove('expanded-textarea');
+                if (icon) icon.className = 'fa-solid fa-expand';
+                if (textSpan) textSpan.textContent = window.currentLang === 'ms' ? 'Besarkan' : 'Expand';
+            } else {
+                textarea.classList.add('expanded-textarea');
+                if (icon) icon.className = 'fa-solid fa-compress';
+                if (textSpan) textSpan.textContent = window.currentLang === 'ms' ? 'Kecilkan' : 'Collapse';
+                textarea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
 
         function saveLectureNote(e) {
@@ -1478,7 +1353,7 @@ header {
                 if (isFirebaseConnected) {
                     db.ref('notes_list/' + id).remove()
                         .then(() => {
-                            showToast("Nota berjaya dipadam dari Firebase.");
+                            showToast("Nota berjaya dipadam.");
                             if (noteEditingId === id) cancelNoteEdit();
                         }).catch(err => {
                             showToast("Ralat memadam: " + err.message);
@@ -1496,13 +1371,8 @@ header {
 
         const apiKey = ""; 
 
-        function getModelForText(key) {
-            return "gemini-2.5-flash";
-        }
-
-        function getModelForTts(key) {
-            return "gemini-2.5-flash-preview-tts";
-        }
+        function getModelForText(key) { return "gemini-2.5-flash"; }
+        function getModelForTts(key) { return "gemini-2.5-flash-preview-tts"; }
 
         function getActiveApiKey(type) {
             let studentKey = "";
@@ -1518,7 +1388,6 @@ header {
             return cleanStudentKey || cleanSharedKey || apiKey;
         }
 
-        // --- STREAMING_CHUNK: Handling Gemini text-to-speech WAV formatting... ---
         function pcmToWav(pcm16, sampleRate) {
             const buffer = new ArrayBuffer(44 + pcm16.length * 2);
             const view = new DataView(buffer);
@@ -1560,26 +1429,26 @@ header {
         async function speakText(textToSpeak, buttonElement) {
             const activeKey = getActiveApiKey('tts');
             const originalHtml = buttonElement.innerHTML;
-            buttonElement.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menjana Suara...`;
+            buttonElement.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${window.currentLang === 'ms' ? 'Menjana Suara...' : 'Generating Voice...'}`;
             buttonElement.disabled = true;
 
             const cleanText = textToSpeak
-                .replace(/\$\$[\s\S]*?\$\$/g, "[Ada formula matematik dipaparkan]")
+                .replace(/\$\$[\s\S]*?\$\$/g, "[Formula]")
                 .replace(/\$[\s\S]*?\$/g, "[Formula]")
                 .substring(0, 400);
 
             try {
                 const modelName = getModelForTts(activeKey);
+                const promptText = window.currentLang === 'ms'
+                    ? `Sebutkan teks penerangan perakaunan ini secara santai, mesra, jelas dan menggunakan intonasi Bahasa Melayu yang terbaik: ${cleanText}`
+                    : `Speak this accounting explanation clearly and naturally in English: ${cleanText}`;
+
                 const payload = {
-                    contents: [{
-                        parts: [{ text: `Sebutkan teks penerangan perakaunan ini secara santai, mesra, jelas dan menggunakan intonasi Bahasa Melayu yang terbaik: ${cleanText}` }]
-                    }],
+                    contents: [{ parts: [{ text: promptText }] }],
                     generationConfig: {
                         responseModalities: ["AUDIO"],
                         speechConfig: {
-                            voiceConfig: {
-                                prebuiltVoiceConfig: { voiceName: "Puck" }
-                            }
+                            voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } }
                         }
                     },
                     model: modelName
@@ -1592,9 +1461,7 @@ header {
                     body: JSON.stringify(payload)
                 });
 
-                if (!response.ok) {
-                    throw new Error("Gagal menyambung ke server suara Gemini.");
-                }
+                if (!response.ok) throw new Error("Gagal menyambung ke server suara Gemini.");
 
                 const result = await response.json();
                 const part = result?.candidates?.[0]?.content?.parts?.[0];
@@ -1610,9 +1477,9 @@ header {
 
                     const audio = new Audio(audioUrl);
                     audio.play();
-                    showToast(window.currentLang === 'ms' ? "🔊 Memainkan suara penjelasan..." : "🔊 Playing explanation audio...");
+                    showToast(window.currentLang === 'ms' ? "🔊 Memainkan suara..." : "🔊 Playing audio...");
                 } else {
-                    showToast(window.currentLang === 'ms' ? "Data audio tidak ditemui dalam maklum balas API." : "Audio data not found in API response.");
+                    showToast(window.currentLang === 'ms' ? "Data audio tidak ditemui." : "Audio data not found.");
                 }
             } catch (err) {
                 console.error(err);
@@ -1623,29 +1490,26 @@ header {
             }
         }
 
-        // Set default system language to 'ms' for buddy experience
         window.currentLang = localStorage.getItem('app_lang') || 'ms';
 
-        // --- STREAMING_CHUNK: Configuring dwi-bahasa translations and localizations... ---
         const translations = {
             ms: {
-                studentKeys: "API Keys Pelajar",
+                studentKeys: "Kunci API Pelajar",
                 lecturerPortal: "Akses Pensyarah (Admin)",
-                reset: "Reset",
+                reset: "Set Semula",
                 allChapters: "Semua Bab / Topik",
-                loadingChapters: "Memuatkan Bab...",
-                quizBtn: "📝 Uji Minda (Quiz)",
+                quizBtn: "📝 Uji Minda (Kuiz)",
                 inputPlaceholder: "Tanya je bro/sis... aku sedia ajar kau sampai pandai!",
                 welcomeMsg: `Weh! Kau pening lagi ke pasal kelas Perakaunan tadi? Meh, aku tolong tunjuk ajar sampai kau faham! Tanya je apa-apa kat bawah ni, aku sedia tolong kau. 🤜🤛`,
                 adminTitle: "Papan Pemuka Pentadbir (Pengurusan Nota Kuliah)",
                 adminGuideTitle: "Panduan Pensyarah:",
                 adminGuideDesc: "Tulis Tagging Bab dan Tajuk Nota anda, kemudian tampal isi kandungan nota di kotak sebelah bawah. Semua nota yang anda simpan akan masuk ke senarai di sebelah kanan untuk memudahkan anda menukar atau menambah nota pada bila-bila masa.",
                 sharedKeyTitle: "Kunci API Gemini Kongsi (Lecturer Shared Key)",
-                sharedKeyDesc: "Tampal kunci API pensyarah di bawah untuk membolehkan semua pelajar anda terus berbual dengan AI tanpa perlu memasukkan kunci API mereka sendiri. Kunci ini disimpan selamat di pelayan cloud (Firebase) dan disembunyikan sepenuhnya daripada fail kod HTML pelajar.",
+                sharedKeyDesc: "Tampal kunci API pensyarah di bawah untuk membolehkan semua pelajar anda terus berbual dengan AI tanpa perlu memasukkan kunci API mereka sendiri. Kunci ini disimpan selamat di pelayan awan (Firebase) dan disembunyikan daripada fail kod HTML pelajar.",
                 saveBtn: "💾 Simpan Kunci Kongsi",
                 brandingTitle: "Tetapan Penjenamaan (Branding Settings)",
                 brandingDesc: "Ubah suai nama paparan sistem perakaunan anda di sini untuk disesuaikan mengikut kursus atau fakulti.",
-                lblMainTitle: "Nama Singkat Sistem (Header)",
+                lblMainTitle: "Nama Ringkas Sistem (Header)",
                 lblSubTitle: "Nama Penuh Sistem (Sembang)",
                 saveBranding: "💾 Simpan Penjenamaan",
                 addNoteTitle: "Tambah/Ubah Nota",
@@ -1665,18 +1529,17 @@ header {
                 lecturerPortal: "Lecturer Access (Admin)",
                 reset: "Reset",
                 allChapters: "All Chapters / Topics",
-                loadingChapters: "Loading Chapters...",
                 quizBtn: "📝 Mind Test (Quiz)",
                 inputPlaceholder: "Ask me anything, buddy... I'll help you get this!",
                 welcomeMsg: `Dude! Are you still confused about that Accounting class? Don't worry, I got your back! Just ask me anything below, and we'll master this together! 🤜🤛`,
                 adminTitle: "Lecturer Dashboard (Lecture Notes Management)",
                 adminGuideTitle: "Lecturer Guide:",
-                adminGuideDesc: "Write your Chapter Tagging and Note Title, then paste the note content in the text box below. All saved notes will be added to the list on the right for easy editing or addition at any time.",
+                adminGuideDesc: "Write your Chapter Tagging and Note Title, then paste the note content in the text box below. All saved notes will be added to the list on the right for easy editing at any time.",
                 sharedKeyTitle: "Lecturer Shared Gemini API Key",
-                sharedKeyDesc: "Paste the lecturer API key below to allow students to chat with AI without entering their own keys. This key is stored securely in the cloud (Firebase) and is completely hidden from the students' HTML code.",
+                sharedKeyDesc: "Paste the lecturer API key below to allow students to chat with AI without entering their own keys. This key is stored securely in the cloud (Firebase) and is hidden from the students' HTML code.",
                 saveBtn: "💾 Save Shared Key",
                 brandingTitle: "Branding Settings",
-                brandingDesc: "Modify the system display name here to customize for your courses or faculty.",
+                brandingDesc: "Modify the system display name here to customize for your course or faculty.",
                 lblMainTitle: "System Short Name (Header)",
                 lblSubTitle: "System Full Name (Chat)",
                 saveBranding: "💾 Save Branding",
@@ -1712,6 +1575,15 @@ header {
                 }
             });
 
+            const expandTextSpan = document.getElementById('expandNoteText');
+            const noteTextarea = document.getElementById('inputNoteContent');
+            if (expandTextSpan && noteTextarea) {
+                const isExpanded = noteTextarea.classList.contains('expanded-textarea');
+                expandTextSpan.textContent = isExpanded 
+                    ? (window.currentLang === 'ms' ? 'Kecilkan' : 'Collapse') 
+                    : (window.currentLang === 'ms' ? 'Besarkan' : 'Expand');
+            }
+
             const userInputEl = document.getElementById('userInput');
             if (userInputEl) {
                 userInputEl.placeholder = t.inputPlaceholder;
@@ -1721,8 +1593,6 @@ header {
             if (selector && selector.options.length > 0) {
                 if (selector.value === "Semua") {
                     selector.options[0].text = t.allChapters;
-                } else {
-                    selector.options[0].text = window.currentLang === 'ms' ? 'Memuatkan Bab...' : 'Loading Chapters...';
                 }
             }
             
@@ -1732,96 +1602,28 @@ header {
             }
         };
 
-        window.copyToClipboard = function(encodedText) {
-            const text = decodeURIComponent(encodedText);
-            const tempInput = document.createElement("textarea");
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            showToast(window.currentLang === 'ms' ? "Prompt disalin!" : "Prompt copied!");
-        };
-
-        // --- STREAMING_CHUNK: Formatting Markdown text into readable HTML... ---
         function formatAiReplyToHtml(text) {
             if (!text) return "";
             
             let formatted = text;
-            
             const codeBlocks = [];
             formatted = formatted.replace(/```[a-z]*\n([\s\S]*?)\n```/g, function(match, code) {
                 const placeholder = `__CODE_BLOCK_PLACEHOLDER_${codeBlocks.length}__`;
                 codeBlocks.push(code);
                 return placeholder;
             });
-            
-            const inlineCodes = [];
-            formatted = formatted.replace(/`([^`]+)`/g, function(match, code) {
-                const placeholder = `__INLINE_CODE_PLACEHOLDER_${inlineCodes.length}__`;
-                inlineCodes.push(code);
-                return placeholder;
-            });
 
             formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             formatted = formatted.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-            formatted = formatted.replace(/^>\s?(.*)$/gm, '<blockquote style="border-left: 4px solid var(--secondary); padding-left: 12px; color: var(--text-muted); margin: 8px 0; font-style: italic;">$1</blockquote>');
-            
-            let lines = formatted.split('\n');
-            let inList = false;
-            for (let i = 0; i < lines.length; i++) {
-                let line = lines[i].trim();
-                if (line.startsWith('- ') || line.startsWith('* ')) {
-                    let content = line.substring(2);
-                    if (!inList) {
-                        lines[i] = '<ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px;">\n<li>' + content + '</li>';
-                        inList = true;
-                    } else {
-                        lines[i] = '<li>' + content + '</li>';
-                    }
-                } else {
-                    if (inList) {
-                        lines[i-1] = lines[i-1] + '\n</ul>';
-                        inList = false;
-                    }
-                }
-            }
-            if (inList) {
-                lines[lines.length - 1] = lines[lines.length - 1] + '\n</ul>';
-            }
-            formatted = lines.join('\n');
             formatted = formatted.replace(/\n/g, '<br>');
-            
-            formatted = formatted.replace(/<\/ul><br>/g, '</ul>');
-            formatted = formatted.replace(/<ul([^>]*)><br>/g, '<ul$1>');
-            formatted = formatted.replace(/<li><br>/g, '<li>');
-            formatted = formatted.replace(/<\/li><br>/g, '</li>');
-            formatted = formatted.replace(/<\/blockquote><br>/g, '</blockquote>');
-            formatted = formatted.replace(/<table([^>]*)><br>/g, '<table$1>');
-            formatted = formatted.replace(/<\/table><br>/g, '</table>');
-            formatted = formatted.replace(/<thead([^>]*)><br>/g, '<thead$1>');
-            formatted = formatted.replace(/<\/thead><br>/g, '</thead>');
-            formatted = formatted.replace(/<tbody([^>]*)><br>/g, '<tbody$1>');
-            formatted = formatted.replace(/<\/tbody><br>/g, '</tbody>');
-            formatted = formatted.replace(/<tr([^>]*)><br>/g, '<tr$1>');
-            formatted = formatted.replace(/<\/tr><br>/g, '</tr>');
-            formatted = formatted.replace(/<td([^>]*)><br>/g, '<td$1>');
-            formatted = formatted.replace(/<\/td><br>/g, '</td>');
-            formatted = formatted.replace(/<th([^>]*)><br>/g, '<th$1>');
-            formatted = formatted.replace(/<\/th><br>/g, '</th>');
-
-            inlineCodes.forEach((code, idx) => {
-                formatted = formatted.replace(`__INLINE_CODE_PLACEHOLDER_${idx}__`, `<code style="background: #e2e8f0; color: #0f172a; padding: 2px 6px; border-radius: 6px; font-family: monospace; font-size: 0.9em;">${escapeHtml(code)}</code>`);
-            });
 
             codeBlocks.forEach((code, idx) => {
-                formatted = formatted.replace(`__CODE_BLOCK_PLACEHOLDER_${idx}__`, `<pre style="background: #1e293b; color: #f8fafc; padding: 14px; border-radius: 12px; overflow-x: auto; font-family: monospace; font-size: 0.88rem; margin: 10px 0; line-height: 1.5;"><code>${escapeHtml(code)}</code></pre>`);
+                formatted = formatted.replace(`__CODE_BLOCK_PLACEHOLDER_${idx}__`, `<pre style="background: #1e293b; color: #f8fafc; padding: 14px; border-radius: 12px; overflow-x: auto; font-family: monospace; font-size: 0.88rem; margin: 10px 0;"><code>${escapeHtml(code)}</code></pre>`);
             });
             
             return formatted;
         }
 
-        // --- STREAMING_CHUNK: Generating secure AI quiz questions via Gemini Flash... ---
         async function triggerAIQuiz() {
             const selectedBab = document.getElementById('selectChapterFilter').value;
             const activeKey = getActiveApiKey('flash');
@@ -1836,7 +1638,7 @@ header {
                     noteContentForContext += `Bab/Tag: ${item.bab}\nTajuk: ${item.title}\nKandungan Nota:\n${item.content}\n\n---\n\n`;
                 });
             } else {
-                showToast("Sila pastikan pensyarah telah memuat naik nota untuk bab ini.");
+                showToast(window.currentLang === 'ms' ? "Sila pastikan pensyarah telah memuat naik nota untuk bab ini." : "Please ensure lecturer has uploaded notes for this chapter.");
                 return;
             }
 
@@ -1849,63 +1651,55 @@ header {
 
             try {
                 const modelName = getModelForText(activeKey);
+                const isMs = window.currentLang === 'ms';
+
+                const systemInstructionText = isMs
+                    ? `Hasilkan SATU soalan kuiz aneka pilihan (MCQ) yang WAJIB dipetik dan berpandukan 100% daripada nota kuliah perakaunan di bawah. Berlakonlah sebagai sahabat baik (study buddy) yang bercakap dalam Bahasa Melayu santai (guna kau-aku, bro, sis, weh). JANGAN guna Bahasa Inggeris.`
+                    : `Generate ONE multiple choice quiz question (MCQ) strictly based on the accounting lecture notes below. Act as a friendly study buddy. Respond 100% strictly in English (use buddy, dude, mate). DO NOT use Malay words.`;
+
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${activeKey}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `Hasilkan SATU soalan kuiz aneka pilihan (MCQ) yang WAJIB dipetik dan berpandukan 100% daripada nota kuliah perakaunan yang disediakan di bawah. 
-                                Berlakonlah sebagai sahabat baik (study buddy) yang sedang buat sesi ulangkaji dengan kawan dia. Gaya bahasa mestilah sangat santai mengikut tetapan bahasa sistem semasa: ${window.currentLang === 'ms' ? 'Bahasa Melayu (gunakan kau-aku, bro, sis, weh)' : 'English (use buddy, dude, mate)'}.
-                                JANGAN reka terma baru, JANGAN ubah formula, dan JANGAN guna fakta di luar konteks nota. Jawapan yang betul mestilah selaras dan boleh dibuktikan secara literal menggunakan nota di bawah.
-                                
-                                NOTA RUJUKAN LECTURER:
-                                """
-                                ${noteContentForContext}
-                                """
+                                text: `${systemInstructionText}
 
-                                Kembalikan respons anda di dalam format JSON standard yang bersih mengikut skema berikut:
-                                {
-                                  "soalan": "Teks soalan kuiz di sini (paparkan formula menggunakan LaTeX jika perlu)",
-                                  "pilihan": ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
-                                  "jawapan_betul": 0, // indeks pilihan dari 0 hingga 3
-                                  "penerangan": "Penerangan akademik yang tersusun langkah demi langkah tapi dalam tone borak kawan-kawan yang gigih mengajar. Sila gunakan format HTML bersih untuk menstrukturkan ulasan anda seperti berikut:\\n\\n<div class='feedback-section-title'><i class='fa-solid fa-lightbulb'></i> 💡 Konsep Asas (Cara Aku Faham):</div>[Masukkan ulasan konsep dalam bentuk perenggan wajib selaras dengan nota lecturer tapi guna analogi mudah]\\n\\n<div class='feedback-section-title'><i class='fa-solid fa-calculator'></i> 🧮 Jom Kira Sama-Sama:</div>[Masukkan pengiraan berstruktur satu persatu secara matematik menggunakan formula LaTeX $ atau $$ mengikut formula rasmi nota]\\n\\n<div class='feedback-section-title'><i class='fa-solid fa-graduation-cap'></i> 🌟 Tip Dari Aku (Study Buddy Kau):</div>[Masukkan tip bijak atau strategi mudah untuk mengingat konsep ini]"
-                                }
-                                
-                                Jangan sertakan sebarang teks markdown lain selain daripada objek JSON di atas.`
+NOTA RUJUKAN:
+"""
+${noteContentForContext}
+"""
+
+Format JSON wajib:
+{
+  "soalan": "Teks soalan kuiz",
+  "pilihan": ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+  "jawapan_betul": 0,
+  "penerangan": "Penerangan akademik tersusun..."
+}`
                             }]
                         }],
                         generationConfig: {
                             responseMimeType: "application/json",
-                            temperature: 0.1 // Diturunkan daripada 0.9 kepada 0.1 untuk kepatuhan tinggi terhadap nota
+                            temperature: 0.1
                         }
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error("Gagal menjana kuiz.");
-                }
+                if (!response.ok) throw new Error("Gagal menjana kuiz.");
 
                 const result = await response.json();
                 removeTyping(typingId);
 
                 const rawJson = result.candidates[0].content.parts[0].text;
-                
                 let cleanedJson = rawJson.trim();
                 if (cleanedJson.includes("```")) {
                     cleanedJson = cleanedJson.replace(/```json/g, "").replace(/```/g, "").trim();
                 }
-                const firstBrace = cleanedJson.indexOf("{");
-                const lastBrace = cleanedJson.lastIndexOf("}");
-                if (firstBrace !== -1 && lastBrace !== -1) {
-                    cleanedJson = cleanedJson.substring(firstBrace, lastBrace + 1);
-                }
 
                 const quiz = JSON.parse(cleanedJson);
-
                 const quizId = "quiz_" + Date.now();
                 
-                // Store quiz answers and explanations in the global registry to avoid syntax/quoting errors
                 window.quizRegistry[quizId] = {
                     correctIdx: quiz.jawapan_betul,
                     penerangan: quiz.penerangan
@@ -1913,10 +1707,10 @@ header {
 
                 let optionsHtml = "";
                 quiz.pilihan.forEach((opt, idx) => {
-                    optionsHtml += `<button class="quiz-option" data-idx="${idx}" onclick="submitQuizAnswer('${quizId}', ${idx})"> ${opt}</button>`;
+                    optionsHtml += `<button class="quiz-option" data-idx="${idx}" onclick="submitQuizAnswer('${quizId}', ${idx})">${opt}</button>`;
                 });
 
-                const quizTitleLabel = window.currentLang === 'ms' ? 'KUIZ DIRI' : 'SELF QUIZ';
+                const quizTitleLabel = isMs ? 'KUIZ DIRI' : 'SELF QUIZ';
                 const quizBubbleHtml = `
                     <div id="${quizId}">
                         <div style="background: #fffdf5; border-left: 4px solid #f59e0b; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
@@ -1935,11 +1729,10 @@ header {
             } catch (err) {
                 console.error(err);
                 removeTyping(typingId);
-                appendMsg('bot', window.currentLang === 'ms' ? 'Maaf, saya tidak dapat menjana kuiz pada saat ini. Sila semak sambungan API Key anda.' : 'Sorry, I cannot generate quiz at this moment. Please check your API Key connection.');
+                appendMsg('bot', window.currentLang === 'ms' ? 'Maaf, gagal menjana kuiz. Sila semak Kunci API anda.' : 'Sorry, failed to generate quiz. Please check your API Key.');
             }
         }
 
-        // --- STREAMING_CHUNK: Validating student quiz answers and rendering feedback... ---
         function submitQuizAnswer(quizContainerId, selectedIdx) {
             const container = document.getElementById(quizContainerId);
             if (!container) return;
@@ -1964,12 +1757,14 @@ header {
             });
 
             let finalFeedbackHtml = "";
+            const isMs = window.currentLang === 'ms';
+
             if (selectedIdx === correctIdx) {
                 finalFeedbackHtml = `
                     <div class="quiz-feedback-box correct">
                         <strong style="font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
                             <i class="fa-solid fa-circle-check" style="color:#10b981; font-size: 1.2rem;"></i> 
-                            ${window.currentLang === 'ms' ? 'Mantap weh! Jawapan kau betul tepat! 🎉' : 'Amazing! Your answer is spot on! 🎉'}
+                            ${isMs ? 'Mantap weh! Jawapan kau betul tepat! 🎉' : 'Awesome! Your answer is spot on! 🎉'}
                         </strong>
                         <hr style="border: 0; border-top: 1px solid rgba(6, 95, 70, 0.15); margin: 12px 0 8px 0;">
                         ${explanationText}
@@ -1982,10 +1777,10 @@ header {
                     <div class="quiz-feedback-box wrong">
                         <strong style="font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
                             <i class="fa-solid fa-circle-xmark" style="color:#ef4444; font-size: 1.2rem;"></i> 
-                            ${window.currentLang === 'ms' ? 'Alamak weh, silap sikit! Tapi takpa... 😅' : 'Oops, not quite correct! But no worries... 😅'}
+                            ${isMs ? 'Alamak weh, silap sikit! Tapi takpa... 😅' : 'Oops, not quite correct! But no worries... 😅'}
                         </strong>
                         <p style="font-size: 0.88rem; font-weight: 600; margin-top: 4px; opacity: 0.9;">
-                            ${window.currentLang === 'ms' ? `Jawapan yang betul sebenarnya <b>Pilihan ${correctLetter}</b>.` : `The correct answer is <b>Option ${correctLetter}</b>.`}
+                            ${isMs ? `Jawapan yang betul sebenarnya <b>Pilihan ${correctLetter}</b>.` : `The correct answer is <b>Option ${correctLetter}</b>.`}
                         </p>
                         <hr style="border: 0; border-top: 1px solid rgba(153, 27, 27, 0.15); margin: 12px 0 8px 0;">
                         ${explanationText}
@@ -1995,16 +1790,13 @@ header {
 
             container.innerHTML += finalFeedbackHtml;
             renderMath();
-            showToast(selectedIdx === correctIdx ? (window.currentLang === 'ms' ? "Tahniah! Betul!" : "Congratulations! Correct!") : (window.currentLang === 'ms' ? "Sila baca penerangan untuk buat ulang kaji!" : "Please review the explanation for revision!"));
+            showToast(selectedIdx === correctIdx ? (isMs ? "Tahniah! Betul!" : "Congratulations! Correct!") : (isMs ? "Sila baca penerangan!" : "Please review the explanation!"));
         }
 
         const chatBox = document.getElementById('chat-box');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
 
-        console.warn("TIPS KESELAMATAN: Sila pastikan Anonymous Sign-In didayakan dalam Firebase Console.");
-
-        // --- STREAMING_CHUNK: Sending interactive chat messages using study buddy persona... ---
         function filterChapterChanged() {
             userInput.value = '';
             const currentBab = document.getElementById('selectChapterFilter').value;
@@ -2040,8 +1832,8 @@ header {
             if (!activeApiKey) {
                 removeTyping(typingId);
                 appendMsg('bot', `
-                    <div style="background:#fee2e2; border:1px solid #fecaca; color:#991b1b; padding:12px; border-radius:12px; font-size:0.85rem; margin-bottom:8px;">
-                        <strong>⚠️ API Key Diperlukan:</strong> Sila klik butang <b>"API Keys Pelajar"</b> di bahagian atas untuk memasukkan Kunci API peribadi anda bagi Gemini 3.
+                    <div style="background:#fee2e2; border:1px solid #fecaca; color:#991b1b; padding:12px; border-radius:12px; font-size:0.85rem;">
+                        <strong>⚠️ Kunci API Diperlukan:</strong> Sila masukkan Kunci API anda di ruang "Kunci API Pelajar".
                     </div>
                 `);
                 return;
@@ -2049,40 +1841,32 @@ header {
 
             try {
                 const modelName = getModelForText(activeApiKey);
+                const isMs = window.currentLang === 'ms';
+
+                const promptLanguageInstruction = isMs
+                    ? `Gunakan Bahasa Melayu santai sepenuhnya (guna kau-aku, bro, sis, weh).`
+                    : `Respond 100% strictly in English (use buddy, dude, mate). DO NOT use Malay words.`;
+
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${activeApiKey}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `Kau adalah seorang sahabat baik (study buddy) yang sangat gigih, penyayang, sabar, and bersungguh-sungguh nak ajar kawan kau (iaitu user) yang tak faham langsung apa yang lecturer ajar kat dewan kuliah tadi.
-                                Gaya borak kau mestilah sangat santai, mesra, and penuh keakraban mengikut bahasa sistem semasa:
-                                - Jika Bahasa Melayu (ms): Guna kata ganti nama 'kau' dan 'aku', panggil dia 'bro', 'sis', 'weh', atau 'kawan'. Gunakan bahasa basahan yang relaks tapi sopan and berilmu. Gunakan analogi seharian yang kelakar and mudah masuk otak (contohnya pasal beli nasi lemak, topup game, beli boba, dsb).
-                                - Jika Bahasa Inggeris (en): Guna 'dude', 'buddy', 'my friend', 'mate'. Gaya santai tapi berpengetahuan tinggi.
+                                text: `Kau adalah seorang sahabat baik (study buddy) yang mengajar perakaunan. ${promptLanguageInstruction}
 
-                                JAWAB SOALAN DIA DENGAN MERUJUK KEPADA KUMPULAN NOTA KULIAH DI BAWAH SAHAJA:
-                                """
-                                ${noteContentForContext}
-                                """
+Jawab soalan berpandukan nota di bawah SAHAJA:
+"""
+${noteContentForContext}
+"""
 
-                                Arahan Kritikal Layout & Respons:
-                                1. JANGAN berpura-pura jadi AI formal. Kau adalah kawan dia! Tunjukkan kegigihan kau nak ajar dia sampai dia betul-betul pandai.
-                                2. Terus beri penjelasan yang tajam, tersusun, and betul ikut nota lecturer tapi dalam tone kawan-kawan yang supportive.
-                                3. Sekiranya maklumat tiada langsung di dalam kumpulan nota tersebut, bagitahu dia secara jujur tapi tetap supportive (cth: "Adoi weh, lecturer tak ada letak pasal benda ni lah dalam nota kelas kita. Sori tau! Tapi kau nak aku tolong terangkan yang lain tak?").
-                                4. Sekiranya jawapan melibatkan logik pengiraan, imbangan duga, catatan jurnal, atau susunan data kewangan, bina dan keluarkannya dalam bentuk JADUAL HTML (<table>) yang lengkap, bersih, teratur and mesra UI.
-                                5. Paparkan formula matematik atau perakaunan dalam format LaTeX menggunakan $$ untuk baris baru atau $ untuk formula inline dalam teks.
-
-                                Soalan Kawan Kau: ${query}`
+Soalan: ${query}`
                             }]
                         }]
                     })
                 });
 
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    const errorMessage = errorData.error?.message || `HTTP Error! Status: ${response.status}`;
-                    throw new Error(errorMessage);
-                }
+                if (!response.ok) throw new Error(`HTTP Error! Status: ${response.status}`);
 
                 const data = await response.json();
                 removeTyping(typingId);
@@ -2093,7 +1877,7 @@ header {
                     
                     appendMsg('bot', `
                         <div id="${messageId}">
-                            <span style="font-size:0.75rem; background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:10px; font-weight:700; margin-bottom:8px; display:inline-block;">Rujukan Sembang: ${selectedBab}</span><br>
+                            <span style="font-size:0.75rem; background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:10px; font-weight:700; margin-bottom:8px; display:inline-block;">${selectedBab}</span><br>
                             <span class="message-text">${formatAiReplyToHtml(aiReply)}</span>
                             <div class="bubble-actions">
                                 <button class="bubble-btn" onclick="speakText(document.querySelector('#${messageId} .message-text').innerText, this)">
@@ -2105,25 +1889,13 @@ header {
                     
                     renderMath();
                 } else {
-                    appendMsg('bot', 'Maaf, AI tidak mengembalikan sebarang respon. Sila semak semula kandungan nota kuliah anda.');
+                    appendMsg('bot', 'Tiada respon diterima dari AI.');
                 }
 
             } catch (err) {
                 console.error(err);
                 removeTyping(typingId);
-                appendMsg('bot', `
-                    <div style="background:#fee2e2; border:1px solid #fecaca; color:#991b1b; padding:15px; border-radius:12px; font-size:0.85rem; line-height:1.5;">
-                        <strong style="font-size:0.9rem;"><i class="fa-solid fa-triangle-exclamation"></i> Ralat API / Sambungan Terganggu</strong><br>
-                        <span style="color:#7f1d1d; font-family:monospace; display:block; margin: 8px 0; padding:6px; background:#fef2f2; border-radius:6px; border: 1px solid #fca5a5;">${err.message}</span>
-                        
-                        <strong>💡 Langkah Penyelesaian Mudah:</strong>
-                        <ul style="list-style-type: decimal; margin-left: 18px; margin-top: 6px; display:flex; flex-direction:column; gap:4px;">
-                            <li><b>Kunci API Salah/Tidak Sah:</b> Sila klik butang "API Keys Pelajar" di atas, pastikan kunci API ditampal dengan tepat (tanpa ruang kosong di awal/akhir).</li>
-                            <li><b>Sekatan Rangkaian (Firewall):</b> Jika anda menggunakan Wi-Fi Universiti atau Kolej, rangkaian mereka mungkin menghalang permintaan ke pelayan Google. Cuba tukar kepada <b>Data Mudah Alih (Mobile Data/Hotspot)</b> atau gunakan VPN.</li>
-                            <li><b>Adblocker:</b> Cuba matikan sekatan pemalam iklan pelayar anda jika ia menyekat sambungan.</li>
-                        </ul>
-                    </div>
-                `);
+                appendMsg('bot', `<div style="color:var(--danger);">Ralat: ${err.message}</div>`);
             }
         }
 
